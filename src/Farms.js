@@ -1130,9 +1130,11 @@ function Farms() {
   
       const masterChef = new web3h.eth.Contract(masterChefABI, '0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78');
 
-      const hlyusdclp = await priceFeed.methods.getLatestTokenPrice('0x387d00b1c74e60e7627b7048818372b1b4ec2e3f', 1).call();
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
 
-      var hlyusdclpwei = (hlyusdclp / 1e18).toFixed(2);
+      const hlyusdclp = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var hlyusdclpwei = (oneprice / (hlyusdclp / 1e18)).toFixed(2);
 
       var hlyusdcbal = await lptoken.methods.balanceOf(accounts[0]).call();
 
@@ -1215,9 +1217,11 @@ function Farms() {
   
       const masterChefONE = new web3h.eth.Contract(masterChefABI, '0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78');
 
-      const hlyusdclpONE = await priceFeed.methods.getLatestTokenPrice('0x387d00b1c74e60e7627b7048818372b1b4ec2e3f', 1).call();
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
 
-      var hlyusdclpweiONE = (hlyusdclpONE / 1e18).toFixed(2);
+      const hlyusdclpONE = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var hlyusdclpweiONE = (oneprice / (hlyusdclpONE / 1e18)).toFixed(2);
 
       var hlyusdcbalONE = await lptokenONE.methods.balanceOf(account).call();
 
