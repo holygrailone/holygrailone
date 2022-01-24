@@ -1174,7 +1174,7 @@ function Farms() {
 
       setHLYUSDCPrice(hlyusdclpwei);
       setHLYUSDCBal(hlyusdcformat);
-      setHLYLiquid(hlyliquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYLiquid(hlyliquid);
       setHLYUSDCAPR(hlyRewardPerYear.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYUSDCStakedPrice(HLYUSDCstakedusdc.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYUSDCStaked(HLYUSDCstakedwei);
@@ -1257,7 +1257,7 @@ function Farms() {
 
       setHLYONEPrice(hlyusdclpweiONE);
       setHLYONEBal(hlyusdcformatONE);
-      setHLYONELiquid(hlyliquidONE.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYONELiquid(hlyliquidONE);
       setHLYONEAPR(hlyRewardPerYearONE.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYONEStakedPrice(HLYUSDCstakedusdcONE.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYONEStaked(HLYUSDCstakedweiONE);
@@ -1344,7 +1344,7 @@ function Farms() {
 
       setHLYETHPrice(ETHprice);
       setHLYETHBal(hlyusdcformatETH);
-      setHLYETHLiquid(hlyliquidETH.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYETHLiquid(hlyliquidETH);
       setHLYETHAPR(hlyRewardPerYearETH.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYETHStakedPrice(HLYUSDCstakedusdcETH.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYETHStaked(HLYUSDCstakedweiETH);
@@ -1431,7 +1431,7 @@ function Farms() {
 
       setHLYBTCPrice(BTCprice);
       setHLYBTCBal(hlyusdcformatBTC);
-      setHLYBTCLiquid(hlyliquidBTC.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYBTCLiquid(hlyliquidBTC);
       setHLYBTCAPR(hlyRewardPerYearBTC.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYBTCStakedPrice(HLYUSDCstakedusdcBTC.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYBTCStaked(HLYUSDCstakedweiBTC);
@@ -1510,7 +1510,7 @@ function Farms() {
 
       setHLYWONEPrice(WONEprice);
       setHLYWONEBal(hlyusdcformatWONE);
-      setHLYWONELiquid(hlyliquidWONE.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYWONELiquid(hlyliquidWONE);
       setHLYWONEAPR(hlyRewardPerYearWONE.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYWONEStakedPrice(HLYUSDCstakedusdcWONE.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setHLYWONEStaked(HLYUSDCstakedweiWONE);
@@ -1589,7 +1589,7 @@ function Farms() {
 
       setUSDCPrice(USDCprice);
       setUSDCBal(hlyusdcformatUSDC);
-      setUSDCLiquid(hlyliquidUSDC.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setUSDCLiquid(hlyliquidUSDC);
       setUSDCAPR(hlyRewardPerYearUSDC.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setUSDCStakedPrice(HLYUSDCstakedusdcUSDC.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setUSDCStaked(HLYUSDCstakedweiUSDC);
@@ -1674,7 +1674,7 @@ function Farms() {
 
       setJEWELPrice(hlyusdclpwei);
       setJEWELBal(hlyusdcformat);
-      setJEWELLiquid(jewliquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setJEWELLiquid(jewliquid);
       setJEWELAPR(hlyRewardPerYear.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setJEWELStakedPrice(JEWELstakedusdc.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
       setJEWELStaked(JEWELstakedwei);
@@ -2437,7 +2437,7 @@ function Farms() {
       <div className="section group">
         <div className="col span_1_of_3">
         <span style={{float: "left"}}>TVL</span><br />
-        <span style={{float: "right", fontSize: "34px", fontWeight: "100"}}>${parseInt(HLYLiquid)+parseInt(HLYONELiquid)+parseInt(HLYETHLiquid)+parseInt(HLYBTCLiquid)+parseInt(HLYWONELiquid)+parseInt(USDCLiquid)+parseInt(JEWELLiquid)}</span>
+        <span style={{float: "right", fontSize: "34px", fontWeight: "100"}}>${(parseInt(HLYLiquid)+parseInt(HLYONELiquid)+parseInt(HLYETHLiquid)+parseInt(HLYBTCLiquid)+parseInt(HLYWONELiquid)+parseInt(USDCLiquid)+parseInt(JEWELLiquid)).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
         </div>
         <div className="col span_1_of_3">
         <span style={{float: "left"}}>HLY Price</span><br />
@@ -2480,7 +2480,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYLiquid}</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -2510,7 +2510,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYONELiquid}</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYONELiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -2541,7 +2541,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYETHLiquid}</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYETHLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -2571,7 +2571,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYBTCLiquid}</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYBTCLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -2601,7 +2601,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYWONELiquid}</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYWONELiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -2631,7 +2631,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${USDCLiquid}</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${USDCLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -2661,7 +2661,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${JEWELLiquid}</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${JEWELLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
