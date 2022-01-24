@@ -1134,7 +1134,7 @@ function Farms() {
 
       const hlyusdclp = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var hlyusdclpwei = (oneprice / (hlyusdclp / 1e18)).toFixed(2);
+      var hlyusdclpwei = (oneprice / (hlyusdclp / 1e18)).toFixed(3);
 
       var hlyusdcbal = await lptoken.methods.balanceOf(accounts[0]).call();
 
