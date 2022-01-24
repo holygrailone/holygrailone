@@ -1221,7 +1221,7 @@ function Farms() {
 
       const hlyusdclpONE = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var hlyusdclpweiONE = (oneprice / (hlyusdclpONE / 1e18)).toFixed(2);
+      var hlyusdclpweiONE = (oneprice / (hlyusdclpONE / 1e18)).toFixed(3);
 
       var hlyusdcbalONE = await lptokenONE.methods.balanceOf(account).call();
 
@@ -1308,7 +1308,7 @@ function Farms() {
 
       var ETHprice = calcETH * getonepriceETH / 1e8;
 
-      var hlyusdclpweiETH = (hlyusdclp / 1e18).toFixed(2);
+      var hlyusdclpweiETH = (hlyusdclp / 1e18).toFixed(3);
 
       var hlyusdcbalETH = await lptokenETH.methods.balanceOf(accounts[0]).call();
 
@@ -1395,7 +1395,7 @@ function Farms() {
 
       var BTCprice = calcBTC * getonepriceBTC / 1e8;
 
-      var hlyusdclpweiBTC = (hlyusdclp / 1e18).toFixed(2);
+      var hlyusdclpweiBTC = (hlyusdclp / 1e18).toFixed(3);
 
       var hlyusdcbalBTC = await lptokenBTC.methods.balanceOf(accounts[0]).call();
 
@@ -1476,7 +1476,7 @@ function Farms() {
 
       var WONEprice = getonepriceWONE / 1e8;
 
-      var hlyusdclpweiWONE = (hlyusdclp / 1e18).toFixed(2);
+      var hlyusdclpweiWONE = (hlyusdclp / 1e18).toFixed(3);
 
       var hlyusdcbalWONE = await lptokenWONE.methods.balanceOf(accounts[0]).call();
 
@@ -1553,7 +1553,7 @@ function Farms() {
 
       var USDCprice = 1;
 
-      var hlyusdclpweiUSDC = (hlyusdclp / 1e18).toFixed(2);
+      var hlyusdclpweiUSDC = (hlyusdclp / 1e18).toFixed(3);
 
       var hlyusdcbalUSDC = await lptokenUSDC.methods.balanceOf(accounts[0]).call();
 
@@ -1630,7 +1630,7 @@ function Farms() {
 
       const hlyusdclp = await priceFeed.methods.getLatestTokenPrice('0x387d00b1c74e60e7627b7048818372b1b4ec2e3f', 1).call();
 
-      var hlyusdclpwei = (hlyusdclp / 1e18).toFixed(2);
+      var hlyusdclpwei = (hlyusdclp / 1e18).toFixed(3);
 
       var hlyusdcbal = await lptoken.methods.balanceOf(accounts[0]).call();
 
