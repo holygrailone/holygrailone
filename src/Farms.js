@@ -1329,8 +1329,14 @@ function Farms() {
       var poolWeightETH = poolAllocPointETH.allocPoint / allocPointETH;
   
       var persecETH = (hlyPerSecondETH * poolWeightETH) / 1e18;
+
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
+
+      const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
   
-      var hlyRewardPerYearETH = (hlyusdclpweiETH * (persecETH * BLOCKS_PER_YEAR) / 1e18) / hlyliquidETH;
+      var hlyRewardPerYearETH = (HLYPrices * (persecETH * BLOCKS_PER_YEAR) / 1e18) / hlyliquidETH;
   
       var HLYUSDCstakedETH = await masterChefETH.methods.userInfo(2, accounts[0]).call();
   
@@ -1416,8 +1422,14 @@ function Farms() {
       var poolWeightBTC = poolAllocPointBTC.allocPoint / allocPointBTC;
   
       var persecBTC = (hlyPerSecondBTC * poolWeightBTC) / 1e18;
+
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
+
+      const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
   
-      var hlyRewardPerYearBTC = (hlyusdclpweiBTC * (persecBTC * BLOCKS_PER_YEAR) / 1e18) / hlyliquidBTC;
+      var hlyRewardPerYearBTC = (HLYPrices * (persecBTC * BLOCKS_PER_YEAR) / 1e18) / hlyliquidBTC;
   
       var HLYUSDCstakedBTC = await masterChefBTC.methods.userInfo(3, accounts[0]).call();
   
@@ -1495,8 +1507,14 @@ function Farms() {
       var poolWeightWONE = poolAllocPointWONE.allocPoint / allocPointWONE;
   
       var persecWONE = (hlyPerSecondWONE * poolWeightWONE) / 1e18;
+
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
+
+      const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
   
-      var hlyRewardPerYearWONE = (hlyusdclpweiWONE * (persecWONE * BLOCKS_PER_YEAR) / 1e18) / hlyliquidWONE;
+      var hlyRewardPerYearWONE = (HLYPrices * (persecWONE * BLOCKS_PER_YEAR) / 1e18) / hlyliquidWONE;
   
       var HLYUSDCstakedWONE = await masterChefWONE.methods.userInfo(4, accounts[0]).call();
   
@@ -1574,8 +1592,14 @@ function Farms() {
       var poolWeightUSDC = poolAllocPointUSDC.allocPoint / allocPointUSDC;
   
       var persecUSDC = (hlyPerSecondUSDC * poolWeightUSDC) / 1e18;
+
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
+
+      const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
   
-      var hlyRewardPerYearUSDC = (hlyusdclpweiUSDC * (persecUSDC * BLOCKS_PER_YEAR) / 1e18) / hlyliquidUSDC;
+      var hlyRewardPerYearUSDC = (HLYPrices * (persecUSDC * BLOCKS_PER_YEAR) / 1e18) / hlyliquidUSDC;
   
       var HLYUSDCstakedUSDC = await masterChefUSDC.methods.userInfo(5, accounts[0]).call();
   
@@ -1659,8 +1683,14 @@ function Farms() {
       var poolWeight = poolAllocPoint.allocPoint / allocPoint;
   
       var persec = (hlyPerSecond * poolWeight) / 1e18;
+
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
+
+      const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
   
-      var hlyRewardPerYear = (hlyusdclpwei * (persec * BLOCKS_PER_YEAR) / 1e18) / jewliquid;
+      var hlyRewardPerYear = (HLYPrices * (persec * BLOCKS_PER_YEAR) / 1e18) / jewliquid;
   
       var JEWELstaked = await masterChef.methods.userInfo(6, accounts[0]).call();
   
