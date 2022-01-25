@@ -1136,7 +1136,7 @@ function Farms() {
 
       const hlyusdclp = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var hlyusdclpwei = (oneprice / (hlyusdclp / 1e18)).toFixed(4);
+      var hlyusdclpwei = (oneprice / (hlyusdclp / 1e18)).toFixed(5);
 
       var hlyusdcbal = await lptoken.methods.balanceOf(accounts[0]).call();
 
@@ -1252,7 +1252,7 @@ function Farms() {
 
       const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
 
       var hlyusdclpweiONE = (oneprice / (hlyusdclpONE / 1e18)).toFixed(4);
 
@@ -1374,7 +1374,7 @@ function Farms() {
 
       const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
   
       var hlyRewardPerYearETH = (HLYPrices * (persecETH * BLOCKS_PER_YEAR) / 1e18) / hlyliquidETH;
   
@@ -1467,7 +1467,7 @@ function Farms() {
 
       const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
   
       var hlyRewardPerYearBTC = (HLYPrices * (persecBTC * BLOCKS_PER_YEAR) / 1e18) / hlyliquidBTC;
   
@@ -1552,7 +1552,7 @@ function Farms() {
 
       const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
   
       var hlyRewardPerYearWONE = (HLYPrices * (persecWONE * BLOCKS_PER_YEAR) / 1e18) / hlyliquidWONE;
   
@@ -1637,7 +1637,7 @@ function Farms() {
 
       const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
   
       var hlyRewardPerYearUSDC = (HLYPrices * (persecUSDC * BLOCKS_PER_YEAR) / 1e18) / hlyliquidUSDC;
   
@@ -1728,7 +1728,7 @@ function Farms() {
 
       const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
 
-      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
   
       var hlyRewardPerYear = (HLYPrices * (persec * BLOCKS_PER_YEAR) / 1e18) / jewliquid;
   
