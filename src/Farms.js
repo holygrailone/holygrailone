@@ -1254,7 +1254,7 @@ function Farms() {
 
       var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
 
-      var hlyusdclpweiONE = (oneprice / (hlyusdclpONE / 1e18)).toFixed(4);
+      var hlyusdclpweiONE = (oneprice / (hlyusdclpONE / 1e18)).toFixed(5);
 
       var hlyusdcbalONE = await lptokenONE.methods.balanceOf(account).call();
 
