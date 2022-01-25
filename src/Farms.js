@@ -1212,14 +1212,18 @@ function Farms() {
 
       // HLY-ONE LP
       const lptokenONE = new web3h.eth.Contract(lpABI, '0x3e478ed607f79a50f286a5a6ce52a049897291b2');
-  
-      const hlytokenONE = new web3h.eth.Contract(erc20ABI, '0x8D760497554eecC3B9036fb0364156ef2F0D02BC');
+
+      const hlytoken = new web3h.eth.Contract(erc20ABI, '0x8D760497554eecC3B9036fb0364156ef2F0D02BC');
   
       const masterChefONE = new web3h.eth.Contract(masterChefABI, '0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78');
 
       const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
 
       const hlyusdclpONE = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(4);
 
       var hlyusdclpweiONE = (oneprice / (hlyusdclpONE / 1e18)).toFixed(4);
 
@@ -1229,9 +1233,16 @@ function Farms() {
 
       var totalliquidityONE = await lptokenONE.methods.balanceOf('0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78').call();
 
+      var hlyusdcliquid = await hlytoken.methods.balanceOf('0x3e478ed607f79a50f286a5a6ce52a049897291b2').call();
+
       var hlyusdctotallptokenONE = await lptokenONE.methods.totalSupply().call();
+
+      //get total lp value
+      var liquidcalc = (hlyusdcliquid / 1e18) * hlyusdclpweiONE * 2;
+
+      var priceperLP = liquidcalc / (hlyusdctotallptokenONE / 1e18);
   
-      var hlyliquidONE = totalliquidityONE / 1e18 * hlyusdclpweiONE;
+      var hlyliquidONE = (totalliquidityONE / 1e18) * priceperLP;
   
       var hlyPerSecondONE = await masterChefONE.methods.hlyPerSecond().call();
   
@@ -1243,7 +1254,7 @@ function Farms() {
   
       var persecONE = (hlyPerSecondONE * poolWeightONE) / 1e18;
   
-      var hlyRewardPerYearONE = (hlyusdclpweiONE * (persecONE * BLOCKS_PER_YEAR) / 1e18) / hlyliquidONE;
+      var hlyRewardPerYearONE = (HLYPrices * (persecONE * BLOCKS_PER_YEAR) / 1e18) / hlyliquidONE;
   
       var HLYUSDCstakedONE = await masterChefONE.methods.userInfo(1, account).call();
   
