@@ -1079,6 +1079,8 @@ function Farms() {
   const [JEWELpending, setJEWELpending] = useState(0);
 
 
+  const [HLYBal, setHLYBAL] = useState(0);
+
 
 
   const [hlyusdcallowed, setHLYUSDCAllowed] = useState(false);
@@ -1138,6 +1140,8 @@ function Farms() {
 
       var hlyusdcbal = await lptoken.methods.balanceOf(accounts[0]).call();
 
+      var hlybal = await hlytoken.methods.balanceOf(accounts[0]).call();
+
       var hlyusdcformat = web3.utils.fromWei(hlyusdcbal, 'ether');
   
       var hlyusdcliquid = await hlytoken.methods.balanceOf('0x387d00b1c74e60e7627b7048818372b1b4ec2e3f').call();
@@ -1171,6 +1175,31 @@ function Farms() {
       var hlytotalsupply = await hlytoken.methods.totalSupply().call();
 
       var HLYmcap = (hlytotalsupply / 1e18) * hlyusdclpwei;
+
+      var SI_SYMBOL = ["", "k", "M", "B", "T", "P", "E"];
+
+      function abbreviateNumber(number){
+      
+          // what tier? (determines SI symbol)
+          var tier = Math.log10(Math.abs(number)) / 3 | 0;
+      
+          // if zero, we don't need a suffix
+          if(tier == 0) return number;
+      
+          // get suffix and determine scale
+          var suffix = SI_SYMBOL[tier];
+          var scale = Math.pow(10, tier * 3);
+      
+          // scale the number
+          var scaled = number / scale;
+      
+          // format number and add suffix
+          return scaled.toFixed(1) + suffix;
+      }
+
+      var hlybalformat = web3.utils.fromWei(hlybal, 'ether');
+
+      setHLYBAL(abbreviateNumber(hlybalformat));
 
       setHLYUSDCPrice(hlyusdclpwei);
       setHLYUSDCBal(hlyusdcformat);
@@ -2473,6 +2502,8 @@ function Farms() {
         <p><div><a href="https://beta.defikingdoms.com/#/marketplace" target="_blank">Get JEWEL 🔗</a></div></p>
       </Modal>
 
+    
+
     <div style={{backgroundColor: "#4C4231DE", color: "#FFF", maxWidth: "1100px", margin: "0 auto", borderRadius: "13px", padding: "30px"}}>
 
       <div className="section group">
@@ -2489,10 +2520,10 @@ function Farms() {
         <span style={{float: "right", fontSize: "34px", fontWeight: "100"}}>${HLYmcap}</span>
         </div>
       </div>
-
+            
     </div>
 <div style={{maxWidth: "1100px", margin: "0 auto"}}>
-    <h1>Grail Quests <button style={{float: "right", backgroundColor: "#222", color: "#FFF", borderRadius: "5px", border: "0", padding: "15px", cursor: "pointer"}} onClick={harvestAll}>Claim All</button></h1>
+    <h1>Grail Quests <button class="claimall" onClick={harvestAll}>Claim All</button></h1>
 </div>
     <div style={{backgroundColor: "#4C4231DE", color: "#FFF", maxWidth: "1100px", margin: "0 auto", marginTop: "25px", borderRadius: "13px", padding: "30px"}}>
 
@@ -2749,7 +2780,23 @@ function Farms() {
           </tr> */}
         </tbody>
       </table>
+      
     </div>
+    
+
+
+<div class="section2 group2" style={{maxWidth: "800px", margin: "0 auto"}}>
+	<div class="col2 span_1_of_2">
+	<div align="center" style={{marginTop: "20px"}}><h3 style={{marginBottom: '-15px'}}>HLY Balance</h3><br /><span style={{fontSize: "31px", fontWeight: "100"}}>{HLYBal}</span></div>
+	</div>
+	<div class="col2 span_1_of_2">
+	<div align="center" style={{marginTop: "20px"}}><h3 style={{marginBottom: '-15px'}}>HLY Earnings</h3><br /><span style={{fontSize: "31px", fontWeight: "100"}}>≈{
+    
+    (parseFloat(HLYUSDCpending)+parseFloat(HLYONEpending)+parseFloat(HLYBTCpending)+parseFloat(HLYETHpending)+parseFloat(JEWELpending)+parseFloat(USDCpending)+parseFloat(HLYWONEpending)).toFixed(4)
+  
+  }</span></div>
+	</div>
+</div>
     </div>
     
   )

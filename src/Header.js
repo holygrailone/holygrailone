@@ -98,9 +98,9 @@ async function load() {
     <div>
        <button id="account" onClick={load} style={{float: "right", marginRight: "25px", cursor: "pointer", border: "0", backgroundColor: "rgb(76 66 49)", color: "#FFF", padding: "10px", borderRadius: "5px"}}>{!(account) ? 'Connect Wallet' : acct}</button>
        <h1>&nbsp;</h1>
-       <div align="center"><img src="/hly.png" border="0" width="200px" align="center" /></div>
-       <h1 align="center" style={{fontSize: "44px", marginBottom: "0px"}} className="shimmer">HOLYGRAIL.ONE</h1>
-       <div style={{fontSize: "14px", margin: "0 auto", marginBottom: "25px"}} align="center">One Grail to Rule Them All</div>
+       <div align="center"><img src="/hly.png" border="0" width="200px" align="center" /><br />
+       <h1 align="center" style={{fontSize: "44px", marginBottom: "0px", marginTop: "0px"}} className="shimmer">HOLYGRAIL.ONE</h1>
+       <div style={{fontSize: "14px", margin: "0 auto", marginBottom: "25px"}} align="center">One Grail to Rule Them All</div></div>
 
     </div>
   )

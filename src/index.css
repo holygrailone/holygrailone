@@ -111,12 +111,54 @@ body::-webkit-scrollbar-track {
 .span_2_of_3 { width: 63.33%; }
 .span_1_of_3 { width: 26.66%; }
 
+
 /*  GO FULL WIDTH BELOW 480 PIXELS */
 @media only screen and (max-width: 480px) {
 	.col {  margin: 1% 0 1% 0%; }
 	.span_3_of_3, .span_2_of_3, .span_1_of_3 { width: 100%; }
 }
 
+
+/*  SECTIONS  */
+.section2 {
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+}
+
+/*  COLUMN SETUP  */
+.col2 {
+	display: block;
+	float:left;
+	margin: 1% 0 1% 3%;
+}
+.col2:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group2:before,
+.group2:after { content:""; display:table; }
+.group2:after { clear:both;}
+.group2 { zoom:1; /* For IE 6/7 */ }
+
+/*  GRID OF TWO  */
+.span_2_of_2 {
+	width: 100%;
+}
+.span_1_of_2 {
+	width: 48.5%;
+}
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.col { 
+		margin: 1% 0 1% 0%;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.span_2_of_2, .span_1_of_2 { width: 100%; }
+}
 
 .shimmer {
     font-family: "Poppins";
@@ -126,6 +168,23 @@ body::-webkit-scrollbar-track {
     align-content: center;
     text-align: center;
     color: rgb(240, 221, 56);
+  }
+
+  .claimall {
+    float: right;
+    background-color: rgb(148, 119, 64);
+    color: #FFF; 
+    border-radius: 5px; 
+    border: 0; 
+    padding: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .claimall:hover {
+    color: rgba(255, 255, 255, 1);
+    box-shadow: 0 5px 15px rgba(255, 230, 0, 0.534);
   }
 
 
