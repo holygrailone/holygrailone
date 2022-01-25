@@ -2112,7 +2112,7 @@ function Farms() {
 
           <TabPanel>
           <form onSubmit={(event) => stake(event, 0, document.getElementById('stake').value)}>
-            <input id="stake" type="number" placeholder="Enter Deposit Amount" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
 
             {hlyusdcallowed ? 
 
@@ -2132,7 +2132,7 @@ function Farms() {
           </TabPanel>
           <TabPanel>
           <form onSubmit={(event) => withdraw(event, 0, document.getElementById('unstake').value)}>
-            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
 
             <button type="submit" className="hlybtn">Unstake</button><br />
 
@@ -2168,7 +2168,7 @@ function Farms() {
 
           <TabPanel>
           <form onSubmit={(event) => stake(event, 1, document.getElementById('stake').value)}>
-            <input id="stake" type="number" placeholder="Enter Deposit Amount" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
 
             {hlyoneallowed ? 
 
@@ -2185,7 +2185,7 @@ function Farms() {
           </TabPanel>
           <TabPanel>
           <form onSubmit={(event) => withdraw(event, 1, document.getElementById('unstake').value)}>
-            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
 
             <button type="submit" className="hlybtn">Unstake</button><br />
 
@@ -2221,7 +2221,7 @@ function Farms() {
 
           <TabPanel>
           <form onSubmit={(event) => stake(event, 2, document.getElementById('stake').value)}>
-            <input id="stake" type="number" placeholder="Enter Deposit Amount" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
 
             {hlyethallowed ? 
 
@@ -2238,7 +2238,7 @@ function Farms() {
           </TabPanel>
           <TabPanel>
           <form onSubmit={(event) => withdraw(event, 2, document.getElementById('unstake').value)}>
-            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
 
             <button type="submit" className="hlybtn">Unstake</button><br />
 
@@ -2274,7 +2274,7 @@ function Farms() {
 
           <TabPanel>
           <form onSubmit={(event) => stake(event, 3, document.getElementById('stake').value)}>
-            <input id="stake" type="number" placeholder="Enter Deposit Amount" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
 
             {hlybtcallowed ? 
 
@@ -2291,7 +2291,7 @@ function Farms() {
           </TabPanel>
           <TabPanel>
           <form onSubmit={(event) => withdraw(event, 3, document.getElementById('unstake').value)}>
-            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
 
             <button type="submit" className="hlybtn">Unstake</button><br />
 
@@ -2327,7 +2327,7 @@ function Farms() {
 
           <TabPanel>
           <form onSubmit={(event) => stake(event, 4, document.getElementById('stake').value)}>
-            <input id="stake" type="number" placeholder="Enter Deposit Amount" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
 
             {hlywoneallowed ? 
 
@@ -2344,7 +2344,7 @@ function Farms() {
           </TabPanel>
           <TabPanel>
           <form onSubmit={(event) => withdraw(event, 4, document.getElementById('unstake').value)}>
-            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
 
             <button type="submit" className="hlybtn">Unstake</button><br />
 
@@ -2380,7 +2380,7 @@ function Farms() {
 
           <TabPanel>
           <form onSubmit={(event) => stake(event, 5, document.getElementById('stake').value)}>
-            <input id="stake" type="number" placeholder="Enter Deposit Amount" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
 
             {usdcallowed ? 
 
@@ -2397,7 +2397,7 @@ function Farms() {
           </TabPanel>
           <TabPanel>
           <form onSubmit={(event) => withdraw(event, 5, document.getElementById('unstake').value)}>
-            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
 
             <button type="submit" className="hlybtn">Unstake</button><br />
 
@@ -2433,7 +2433,7 @@ function Farms() {
 
           <TabPanel>
           <form onSubmit={(event) => stake(event, 6, document.getElementById('stake').value)}>
-            <input id="stake" type="number" placeholder="Enter Deposit Amount" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
 
             {jewallowed ? 
 
@@ -2450,7 +2450,7 @@ function Farms() {
           </TabPanel>
           <TabPanel>
           <form onSubmit={(event) => withdraw(event, 6, document.getElementById('unstake').value)}>
-            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
 
             <button type="submit" className="hlybtn">Unstake</button><br />
 
