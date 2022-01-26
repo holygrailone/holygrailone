@@ -2120,13 +2120,13 @@ function Farms() {
         console.log(receipt);
         this.load();
         this.load2();
+        this.load8();
+        this.load9();
         this.load3();
         this.load4();
         this.load5();
         this.load6();
         this.load7();
-        this.load8();
-        this.load9();
       })
       .catch(error => {
         console.log(error);
@@ -2204,13 +2204,13 @@ function Farms() {
           console.log(receipt);
           this.load();
           this.load2();
+          this.load8();
+          this.load9();
           this.load3();
           this.load4();
           this.load5();
           this.load6();
           this.load7();
-          this.load8();
-          this.load9();
         })
         .catch(error => {
           console.log(error);
@@ -2226,13 +2226,13 @@ function Farms() {
           console.log(receipt);
           this.load();
           this.load2();
+          this.load8();
+          this.load9();
           this.load3();
           this.load4();
           this.load5();
           this.load6();
           this.load7();
-          this.load8();
-          this.load9();
         })
         .catch(error => {
           console.log(error);
@@ -2247,13 +2247,13 @@ function Farms() {
         console.log(receipt);
         this.load();
         this.load2();
+        this.load8();
+        this.load9();
         this.load3();
         this.load4();
         this.load5();
         this.load6();
         this.load7();
-        this.load8();
-        this.load9();
       })
       .catch(error => {
         console.log(error);
@@ -2282,13 +2282,13 @@ function Farms() {
             console.log(receipt);
             this.load();
             this.load2();
+            this.load8();
+            this.load9();
             this.load3();
             this.load4();
             this.load5();
             this.load6();
             this.load7();
-            this.load8();
-            this.load9();
           })
           .catch(error => {
             console.log(error);
@@ -2305,13 +2305,13 @@ function Farms() {
             console.log(receipt);
             this.load();
             this.load2();
+            this.load8();
+            this.load9();
             this.load3();
             this.load4();
             this.load5();
             this.load6();
             this.load7();
-            this.load8();
-            this.load9();
           })
           .catch(error => {
             console.log(error);
@@ -2327,13 +2327,13 @@ function Farms() {
           console.log(receipt);
           this.load();
           this.load2();
+          this.load8();
+          this.load9();
           this.load3();
           this.load4();
           this.load5();
           this.load6();
           this.load7();
-          this.load8();
-          this.load9();
         })
         .catch(error => {
           console.log(error);
@@ -2359,13 +2359,13 @@ function Farms() {
         console.log(receipt);
         this.load();
         this.load2();
+        this.load8();
+        this.load9();
         this.load3();
         this.load4();
         this.load5();
         this.load6();
         this.load7();
-        this.load8();
-        this.load9();
       })
       .catch(error => {
         console.log(error);
@@ -2385,13 +2385,13 @@ function Farms() {
       console.log(receipt);
       this.load();
       this.load2();
+      this.load8();
+      this.load9();
       this.load3();
       this.load4();
       this.load5();
       this.load6();
       this.load7();
-      this.load8();
-      this.load9();
     })
     .catch(error => {
       console.log(error);

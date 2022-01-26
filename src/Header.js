@@ -556,16 +556,18 @@ async function load() {
 
        {!(account) ? 
        
-       (<button id="account" onClick={load} style={{float: "right", marginRight: "25px", cursor: "pointer", border: "0", backgroundColor: "rgb(76 66 49)", color: "#FFF", padding: "10px", borderRadius: "5px"}}>Connect Wallet</button> )
+       (<button id="account" onClick={load} style={{border: "3px solid #b19328", float: "right", marginRight: "25px", cursor: "pointer", backgroundColor: "rgb(76 66 49)", color: "#FFF", padding: "10px", borderRadius: "5px"}}>Connect Wallet</button> )
        
        : 
        
-       (<button id="account" onClick={openModalProfile} style={{float: "right", marginRight: "25px", cursor: "pointer", border: "0", backgroundColor: "rgb(76 66 49)", color: "#FFF", padding: "10px", borderRadius: "5px"}}>{acct}</button>)
+       (<button id="account" onClick={openModalProfile} style={{border: "3px solid #b19328", float: "right", marginRight: "25px", cursor: "pointer", backgroundColor: "rgb(76 66 49)", color: "#FFF", padding: "10px", borderRadius: "5px"}}>{acct}</button>)
        }
        <h1>&nbsp;</h1>
-       <div align="center"><img src="/hly.png" border="0" width="200px" align="center" /><br />
-       <h1 align="center" style={{fontSize: "44px", marginBottom: "0px", marginTop: "0px"}} className="shimmer">HOLYGRAIL.ONE</h1>
-       <div style={{fontSize: "14px", margin: "0 auto", marginBottom: "25px"}} align="center">One Grail to Rule Them All</div></div>
+       <div align="center"><img src="/holygrailonegame.png" border="0" style={{maxWidth: "600px", width: "100%", height: "auto", marginBottom: "40px"}} align="center" /><br />
+       {/* <h1 align="center" style={{fontSize: "44px", marginBottom: "0px", marginTop: "0px"}} className="shimmer">HOLYGRAIL.ONE</h1>
+       <div style={{fontSize: "14px", margin: "0 auto", marginBottom: "25px"}} align="center">One Grail to Rule Them All</div> */}
+       
+       </div>
 
     </div>
   )
