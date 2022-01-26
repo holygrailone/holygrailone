@@ -46,6 +46,26 @@ function Farms() {
     setIsOpenHLYONE(false);
   }
 
+  const [modalIsOpenHLYHLYJEW, setIsOpenHLYHLYJEW] = React.useState(false);
+
+  function openModalHLYHLYJEW() {
+    setIsOpenHLYHLYJEW(true);
+  }
+
+  function closeModalHLYHLYJEW() {
+    setIsOpenHLYHLYJEW(false);
+  }
+
+  const [modalIsOpenHLYHLY, setIsOpenHLYHLY] = React.useState(false);
+
+  function openModalHLYHLY() {
+    setIsOpenHLYHLY(true);
+  }
+
+  function closeModalHLYHLY() {
+    setIsOpenHLYHLY(false);
+  }
+
   const [modalIsOpenONE, setIsOpenONE] = React.useState(false);
 
   function openModalONE() {
@@ -1078,6 +1098,26 @@ function Farms() {
   const [JEWELStakedPrice, setJEWELStakedPrice] = useState(0);
   const [JEWELpending, setJEWELpending] = useState(0);
 
+  // HLY-JEWEL LP
+  const [HLYHLYJEWPrice, setHLYHLYJEWPrice] = useState(0);
+  const [HLYHLYJEWBal, setHLYHLYJEWBal] = useState(0);
+  const [HLYHLYJEWLiquid, setHLYHLYJEWLiquid] = useState(0);
+  const [HLYHLYJEWAPR, setHLYHLYJEWAPR] = useState(0);
+
+  const [HLYHLYJEWStaked, setHLYHLYJEWStaked] = useState(0);
+  const [HLYHLYJEWStakedPrice, setHLYHLYJEWStakedPrice] = useState(0);
+  const [HLYHLYJEWpending, setHLYHLYJEWpending] = useState(0);
+
+  // HLY Single STake
+  const [HLYHLYHLYPrice, setHLYHLYHLYPrice] = useState(0);
+  const [HLYHLYHLYBal, setHLYHLYHLYBal] = useState(0);
+  const [HLYHLYHLYLiquid, setHLYHLYHLYLiquid] = useState(0);
+  const [HLYHLYHLYAPR, setHLYHLYHLYAPR] = useState(0);
+
+  const [HLYHLYHLYStaked, setHLYHLYHLYStaked] = useState(0);
+  const [HLYHLYHLYStakedPrice, setHLYHLYHLYStakedPrice] = useState(0);
+  const [HLYHLYHLYpending, setHLYHLYHLYpending] = useState(0);
+
 
   const [HLYBal, setHLYBAL] = useState(0);
 
@@ -1090,6 +1130,8 @@ function Farms() {
   const [hlywoneallowed, setHLYWoneAllowed] = useState(false);
   const [usdcallowed, setUSDCAllowed] = useState(false);
   const [jewallowed, setJEWAllowed] = useState(false);
+  const [hlyhlyjewallowed, setHLYHLYJEWAllowed] = useState(false);
+  const [hlyhlyhlyallowed, setHLYHLYHLYAllowed] = useState(false);
 
   useEffect(() => {
     async function listenMMAccount() {
@@ -1756,6 +1798,200 @@ function Farms() {
       }
 
     }
+
+    async function load8() {
+      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
+      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78  
+      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
+      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
+
+      try {
+      const BLOCKS_PER_YEAR = 15768000 * 1e18;
+      
+      const web3 = new Web3(window.ethereum);
+      await window.ethereum.send('eth_requestAccounts');
+  
+      var accounts = await web3.eth.getAccounts();
+
+      const account = accounts[0];
+  
+      var modacct = accounts[0].slice(0, 15) + '...';
+      document.getElementById('account').innerHTML = modacct;
+
+      const priceFeed = new web3h.eth.Contract(priceOracleABI, "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668");
+
+      // HLY-JEWEL LP
+      const lptokenHLYJEW = new web3h.eth.Contract(lpABI, '0x7b886d19e5ee9e3188eb29037de21dce944ae0ef');
+
+      const hlytoken = new web3h.eth.Contract(erc20ABI, '0x8D760497554eecC3B9036fb0364156ef2F0D02BC');
+  
+      const masterChefHLYJEW = new web3h.eth.Contract(masterChefABI, '0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78');
+
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
+
+      const hlyusdclpHLYJEW = await priceFeed.methods.getLatestTokenPrice('0x7b886d19e5ee9e3188eb29037de21dce944ae0ef', 1).call();
+
+      const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
+
+      // hlyusdclpHLYJEW = 0.000000748 lp tokens = 1 one
+
+      var hlyusdclpweiHLYJEW = (oneprice / (hlyusdclpHLYJEW / 1e18)).toFixed(5);
+
+      var hlyusdcbalHLYJEW = await lptokenHLYJEW.methods.balanceOf(account).call();
+
+      var hlyusdcformatHLYJEW = web3.utils.fromWei(hlyusdcbalHLYJEW, 'ether');
+
+      var totalliquidityHLYJEW = await lptokenHLYJEW.methods.balanceOf('0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78').call();
+
+      var hlyusdcliquid = await hlytoken.methods.balanceOf('0x7b886d19e5ee9e3188eb29037de21dce944ae0ef').call();
+
+      var hlyusdctotallptokenHLYJEW = await lptokenHLYJEW.methods.totalSupply().call();
+
+      //get total lp value
+
+      // console.log(hlyusdcliquid/1e18 * HLYPrices * 2)
+
+      var liquidcalc = (hlyusdcliquid / 1e18) * hlyusdclpweiHLYJEW * 2;
+
+      // console.log(liquidcalc);
+
+      var priceperLP = liquidcalc / (hlyusdctotallptokenHLYJEW / 1e18);
+  
+      var hlyliquidHLYJEW = hlyusdcliquid / 1e18 * HLYPrices * 2;
+  
+      var hlyPerSecondHLYJEW = await masterChefHLYJEW.methods.hlyPerSecond().call();
+  
+      var allocPointHLYJEW = await masterChefHLYJEW.methods.totalAllocPoint().call();
+  
+      var poolAllocPointHLYJEW = await masterChefHLYJEW.methods.poolInfo(7).call();
+  
+      var poolWeightHLYJEW = poolAllocPointHLYJEW.allocPoint / allocPointHLYJEW;
+  
+      var persecHLYJEW = (hlyPerSecondHLYJEW * poolWeightHLYJEW) / 1e18;
+  
+      var hlyRewardPerYearHLYJEW = (HLYPrices * (persecHLYJEW * BLOCKS_PER_YEAR) / 1e18) / hlyliquidHLYJEW;
+  
+      var HLYUSDCstakedHLYJEW = await masterChefHLYJEW.methods.userInfo(7, account).call();
+  
+      var HLYUSDCstakedweiHLYJEW = web3.utils.fromWei(HLYUSDCstakedHLYJEW.amount, 'ether');
+  
+      var HLYUSDCstakedusdcHLYJEW = (hlyliquidHLYJEW / hlyusdctotallptokenHLYJEW) * HLYUSDCstakedweiHLYJEW * 1e18;
+  
+      var HLYUSDCpendingHLYJEW = await masterChefHLYJEW.methods.pendingHLY(7, account).call();
+  
+      var HLYUSDCpendingweiHLYJEW = HLYUSDCpendingHLYJEW / 1e18;
+
+      setHLYHLYJEWPrice(hlyusdclpweiHLYJEW);
+      setHLYHLYJEWBal(hlyusdcformatHLYJEW);
+      setHLYHLYJEWLiquid(hlyliquidHLYJEW);
+      setHLYHLYJEWAPR(hlyRewardPerYearHLYJEW.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYHLYJEWStakedPrice(HLYUSDCstakedusdcHLYJEW.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYHLYJEWStaked(HLYUSDCstakedweiHLYJEW);
+  
+      setHLYHLYJEWpending(HLYUSDCpendingweiHLYJEW.toFixed(4));
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    async function load9() {
+      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
+      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78  
+      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
+      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
+
+      try {
+      const BLOCKS_PER_YEAR = 15768000 * 1e18;
+
+      const web3 = new Web3(window.ethereum);
+      await window.ethereum.send('eth_requestAccounts');
+  
+      var accounts = await web3.eth.getAccounts();
+  
+      var modacct = accounts[0].slice(0, 15) + '...';
+      document.getElementById('account').innerHTML = modacct;
+
+      const priceFeed = new web3h.eth.Contract(priceOracleABI, "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668");
+
+      // HLY Pool
+      const lptokenHLYHLY = new web3h.eth.Contract(erc20ABI, '0x8D760497554eecC3B9036fb0364156ef2F0D02BC');
+  
+      const hlytokenHLYHLY = new web3h.eth.Contract(erc20ABI, '0x8D760497554eecC3B9036fb0364156ef2F0D02BC');
+  
+      const masterChefHLYHLY = new web3h.eth.Contract(masterChefABI, '0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78');
+
+      const hlyusdclp = await priceFeed.methods.getLatestTokenPrice('0x387d00b1c74e60e7627b7048818372b1b4ec2e3f', 1).call();
+
+      const hlyusdclpHLYHLY = await priceFeed.methods.getLatestTokenPrice('0x387d00b1c74e60e7627b7048818372b1b4ec2e3f', 1).call();
+
+      const getonepriceHLYHLY = await priceFeed.methods.getLatestONEPrice().call();
+
+      var formatHLYHLY = hlyusdclpHLYHLY / 1e18;
+
+      var calcHLYHLY = 1 / formatHLYHLY;
+
+      var HLYHLYprice = calcHLYHLY * getonepriceHLYHLY / 1e18;
+
+      const oneprice = await priceFeed.methods.getLatestONEPrice().call() / 1e8;
+
+      const holyprice = await priceFeed.methods.getLatestTokenPrice('0x3e478ed607f79a50f286a5a6ce52a049897291b2', 1).call();
+
+      var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
+
+      var hlyusdclpweiHLYHLY = (hlyusdclp / 1e18).toFixed(3);
+
+      var hlyusdcbalHLYHLY = await lptokenHLYHLY.methods.balanceOf(accounts[0]).call();
+
+      var hlyusdcformatHLYHLY = hlyusdcbalHLYHLY / 1e18;
+  
+      var hlyusdcliquidHLYHLY = await lptokenHLYHLY.methods.balanceOf('0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78').call();
+
+      var hlyusdctotallptokenHLYHLY = await lptokenHLYHLY.methods.totalSupply().call();
+  
+      var hlyliquidHLYHLY = hlyusdcliquidHLYHLY / 1e18 * HLYPrices;
+
+      // console.log(hlyliquidHLYHLY)
+  
+      var hlyPerSecondHLYHLY = await masterChefHLYHLY.methods.hlyPerSecond().call();
+  
+      var allocPointHLYHLY = await masterChefHLYHLY.methods.totalAllocPoint().call();
+  
+      var poolAllocPointHLYHLY = await masterChefHLYHLY.methods.poolInfo(8).call();
+  
+      var poolWeightHLYHLY = poolAllocPointHLYHLY.allocPoint / allocPointHLYHLY;
+  
+      var persecHLYHLY = (hlyPerSecondHLYHLY * poolWeightHLYHLY) / 1e18;
+  
+      var hlyRewardPerYearHLYHLY = (HLYPrices * (persecHLYHLY * BLOCKS_PER_YEAR) / 1e18) / hlyliquidHLYHLY;
+  
+      var HLYUSDCstakedHLYHLY = await masterChefHLYHLY.methods.userInfo(8, accounts[0]).call();
+  
+      var HLYUSDCstakedweiHLYHLY = web3.utils.fromWei(HLYUSDCstakedHLYHLY.amount, 'ether');
+  
+      var HLYUSDCstakedusdcHLYHLY = HLYUSDCstakedweiHLYHLY * HLYPrices;
+  
+      var HLYUSDCpendingHLYHLY = await masterChefHLYHLY.methods.pendingHLY(8, accounts[0]).call();
+  
+      var HLYUSDCpendingweiHLYHLY = HLYUSDCpendingHLYHLY / 1e18;
+
+      setHLYHLYHLYPrice(HLYPrices);
+      setHLYHLYHLYBal(hlyusdcformatHLYHLY);
+      setHLYHLYHLYLiquid(hlyliquidHLYHLY);
+      setHLYHLYHLYAPR(hlyRewardPerYearHLYHLY.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYHLYHLYStakedPrice(HLYUSDCstakedusdcHLYHLY.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 }));
+      setHLYHLYHLYStaked(HLYUSDCstakedweiHLYHLY);
+  
+      setHLYHLYHLYpending(HLYUSDCpendingweiHLYHLY.toFixed(4));
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
   
   
     async function allowance() {
@@ -1821,6 +2057,23 @@ function Farms() {
           setJEWAllowed(true);
         }
 
+        
+        const lpt8 = new web3h.eth.Contract(lpABI, '0x7b886d19e5ee9e3188eb29037de21dce944ae0ef');
+    
+        const allowedhlyjew = await lpt8.methods.allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78").call();
+    
+        if (allowedhlyjew > 0) {
+          setHLYHLYJEWAllowed(true);
+        }
+
+        const lpt9 = new web3h.eth.Contract(lpABI, '0x8D760497554eecC3B9036fb0364156ef2F0D02BC');
+    
+        const allowedhlyhly = await lpt9.methods.allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78").call();
+    
+        if (allowedhlyhly > 0) {
+          setHLYHLYHLYAllowed(true);
+        }
+
       } catch (error) {
         console.log(error)
       }
@@ -1829,6 +2082,8 @@ function Farms() {
 
     load();
     load2();
+    load8();
+    load9();
     load3();
     load4();
     load5();
@@ -1870,6 +2125,8 @@ function Farms() {
         this.load5();
         this.load6();
         this.load7();
+        this.load8();
+        this.load9();
       })
       .catch(error => {
         console.log(error);
@@ -1952,6 +2209,8 @@ function Farms() {
           this.load5();
           this.load6();
           this.load7();
+          this.load8();
+          this.load9();
         })
         .catch(error => {
           console.log(error);
@@ -1972,6 +2231,8 @@ function Farms() {
           this.load5();
           this.load6();
           this.load7();
+          this.load8();
+          this.load9();
         })
         .catch(error => {
           console.log(error);
@@ -1991,6 +2252,8 @@ function Farms() {
         this.load5();
         this.load6();
         this.load7();
+        this.load8();
+        this.load9();
       })
       .catch(error => {
         console.log(error);
@@ -2024,6 +2287,8 @@ function Farms() {
             this.load5();
             this.load6();
             this.load7();
+            this.load8();
+            this.load9();
           })
           .catch(error => {
             console.log(error);
@@ -2045,6 +2310,8 @@ function Farms() {
             this.load5();
             this.load6();
             this.load7();
+            this.load8();
+            this.load9();
           })
           .catch(error => {
             console.log(error);
@@ -2065,6 +2332,8 @@ function Farms() {
           this.load5();
           this.load6();
           this.load7();
+          this.load8();
+          this.load9();
         })
         .catch(error => {
           console.log(error);
@@ -2095,6 +2364,8 @@ function Farms() {
         this.load5();
         this.load6();
         this.load7();
+        this.load8();
+        this.load9();
       })
       .catch(error => {
         console.log(error);
@@ -2119,6 +2390,8 @@ function Farms() {
       this.load5();
       this.load6();
       this.load7();
+      this.load8();
+      this.load9();
     })
     .catch(error => {
       console.log(error);
@@ -2134,7 +2407,7 @@ function Farms() {
         overlayClassName="myoverlay"
         contentLabel="Stake"
       >
-        <h2>HLY-USDC <img src="/hly.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} /></h2>
+        <h2>HLY-USDC <img src="/hlyusdc.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} /></h2>
         {/* <button onClick={closeModal}>close</button> */}
         <div>
         <p style={{backgroundColor: "#111", padding: "15px", borderRadius: "13px"}}>
@@ -2190,7 +2463,7 @@ function Farms() {
         overlayClassName="myoverlay"
         contentLabel="Stake"
       >
-        <h2>HLY-ONE <img src="/hly.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} /></h2>
+        <h2>HLY-ONE <img src="/hlyone.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} /></h2>
         {/* <button onClick={closeModal}>close</button> */}
         <div>
         <p style={{backgroundColor: "#111", padding: "15px", borderRadius: "13px"}}>
@@ -2502,6 +2775,114 @@ function Farms() {
         <p><div><a href="https://beta.defikingdoms.com/#/marketplace" target="_blank">Get JEWEL 🔗</a></div></p>
       </Modal>
 
+      <Modal
+        isOpen={modalIsOpenHLYHLYJEW}
+        onRequestClose={closeModalHLYHLYJEW}
+        style={customStyles}
+        overlayClassName="myoverlay"
+        contentLabel="Stake"
+      >
+        <h2>HLY-JEWEL <img src="/hlyjewel.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} /></h2>
+        {/* <button onClick={closeModal}>close</button> */}
+        <div>
+        <p style={{backgroundColor: "#111", padding: "15px", borderRadius: "13px"}}>
+        Available Balance: <span id="available">{HLYHLYJEWBal}</span><br />
+        Staking: <span id="availablestaked">{HLYHLYJEWStaked}</span><br />
+        Earned: {HLYHLYJEWpending}
+        </p>
+        </div>
+
+        <Tabs>
+          <TabList>
+            <Tab>Stake</Tab>
+            <Tab>Unstake</Tab>
+          </TabList>
+
+          <TabPanel>
+          <form onSubmit={(event) => stake(event, 7, document.getElementById('stake').value)}>
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+
+            {hlyhlyjewallowed ? 
+
+            (<><button type="submit" className="hlybtn">Stake</button><br /></>)
+
+            :
+
+            (<><button className="hlybtn" onClick={(e) => approve(e, '0x7b886d19e5ee9e3188eb29037de21dce944ae0ef')}>Approve</button><br /></>)
+
+            }
+
+            <button className="hlybtn" onClick={(e) => claim(e, 7)}>Claim Earnings</button>
+          </form>
+          </TabPanel>
+          <TabPanel>
+          <form onSubmit={(event) => withdraw(event, 7, document.getElementById('unstake').value)}>
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+
+            <button type="submit" className="hlybtn">Unstake</button><br />
+
+            <button className="hlybtn" onClick={(e) => claim(e, 7)}>Claim Earnings</button>
+          </form>
+          </TabPanel>
+        </Tabs>
+
+        <p><div><a href="https://beta.defikingdoms.com/#/add/0x8D760497554eecC3B9036fb0364156ef2F0D02BC/0x72cb10c6bfa5624dd07ef608027e366bd690048f" target="_blank">Get HLY-JEWEL 🔗</a></div></p>
+      </Modal>
+
+      <Modal
+        isOpen={modalIsOpenHLYHLY}
+        onRequestClose={closeModalHLYHLY}
+        style={customStyles}
+        overlayClassName="myoverlay"
+        contentLabel="Stake"
+      >
+               <h2>HLY <img src="/hly.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} /></h2>
+        {/* <button onClick={closeModal}>close</button> */}
+        <div>
+        <p style={{backgroundColor: "#111", padding: "15px", borderRadius: "13px"}}>
+        Available Balance: <span id="available">{HLYHLYHLYBal}</span><br />
+        Staking: <span id="availablestaked">{HLYHLYHLYStaked}</span><br />
+        Earned: {HLYHLYHLYpending}
+        </p>
+        </div>
+
+        <Tabs>
+          <TabList>
+            <Tab>Stake</Tab>
+            <Tab>Unstake</Tab>
+          </TabList>
+
+          <TabPanel>
+          <form onSubmit={(event) => stake(event, 8, document.getElementById('stake').value)}>
+            <input id="stake" type="number" placeholder="Enter Deposit Amount" step="any" /> <button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={maxAmount}>Max</button><br />
+
+            {hlyhlyhlyallowed ? 
+
+            (<><button type="submit" className="hlybtn">Stake</button><br /></>)
+
+            :
+
+            (<><button className="hlybtn" onClick={(e) => approve(e, '0x8D760497554eecC3B9036fb0364156ef2F0D02BC')}>Approve</button><br /></>)
+
+            }
+
+            <button className="hlybtn" onClick={(e) => claim(e, 8)}>Claim Earnings</button>
+          </form>
+          </TabPanel>
+          <TabPanel>
+          <form onSubmit={(event) => withdraw(event, 8, document.getElementById('unstake').value)}>
+            <input id="unstake" type="number" placeholder="Enter Withdrawal Amount" step="any" /><button style={{display: "inline-block", backgroundColor: "green", border: "0", color: "#FFF", padding: "10px", borderRadius: "10px", cursor: "pointer"}} onClick={unmaxAmount}>Max</button><br />
+
+            <button type="submit" className="hlybtn">Unstake</button><br />
+
+            <button className="hlybtn" onClick={(e) => claim(e, 8)}>Claim Earnings</button>
+          </form>
+          </TabPanel>
+        </Tabs>
+
+        <p><div><a href="https://beta.defikingdoms.com/#/marketplace" target="_blank">Get HLY 🔗</a></div></p>
+      </Modal>
+
     
 
     <div style={{backgroundColor: "#4C4231DE", color: "#FFF", maxWidth: "1100px", margin: "0 auto", borderRadius: "13px", padding: "30px"}}>
@@ -2509,7 +2890,7 @@ function Farms() {
       <div className="section group">
         <div className="col span_1_of_3">
         <span style={{float: "left"}}>TVL</span><br />
-        <span style={{float: "right", fontSize: "34px", fontWeight: "100"}}>${(parseInt(HLYLiquid)+parseInt(HLYONELiquid)+parseInt(HLYETHLiquid)+parseInt(HLYBTCLiquid)+parseInt(HLYWONELiquid)+parseInt(USDCLiquid)+parseInt(JEWELLiquid)).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
+        <span style={{float: "right", fontSize: "34px", fontWeight: "100"}}>${(parseInt(HLYLiquid)+parseInt(HLYONELiquid)+parseInt(HLYETHLiquid)+parseInt(HLYBTCLiquid)+parseInt(HLYWONELiquid)+parseInt(USDCLiquid)+parseInt(JEWELLiquid)+parseInt(HLYHLYJEWLiquid)+parseInt(HLYHLYHLYLiquid)).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
         </div>
         <div className="col span_1_of_3">
         <span style={{float: "left"}}>HLY Price</span><br />
@@ -2541,7 +2922,7 @@ function Farms() {
           <tr onClick={openModal} style={{cursor: "pointer"}}>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
-                <img src="/hly.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
+                <img src="/hlyusdc.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
                 <span style={{fontSize: "18px", fontWeight: "100"}}>HLY-USDC</span>
                 </div>
             </td>
@@ -2571,7 +2952,7 @@ function Farms() {
           <tr onClick={openModalHLYONE} style={{cursor: "pointer"}}>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
-                <img src="/hly.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
+                <img src="/hlyone.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
                 <span style={{fontSize: "18px", fontWeight: "100"}}>HLY-ONE</span>
                 </div>
             </td>
@@ -2593,6 +2974,66 @@ function Farms() {
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
                 <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYONEpending}</span>
+                <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
+                </div>
+            </td>
+          </tr>
+
+          <tr onClick={openModalHLYHLYJEW} style={{cursor: "pointer"}}>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "left"}}>
+                <img src="/hlyjewel.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
+                <span style={{fontSize: "18px", fontWeight: "100"}}>HLY-JEWEL</span>
+                </div>
+            </td>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "center"}}>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYHLYJEWAPR}%</span>
+                </div>
+            </td>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "center"}}>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYHLYJEWLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
+                </div>
+            </td>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "center"}}>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYHLYJEWStakedPrice}</span>
+                </div>
+            </td>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "center"}}>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYHLYJEWpending}</span>
+                <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
+                </div>
+            </td>
+          </tr>
+
+          <tr onClick={openModalHLYHLY} style={{cursor: "pointer"}}>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "left"}}>
+                <img src="/hly.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
+                <span style={{fontSize: "18px", fontWeight: "100"}}>HLY</span>
+                </div>
+            </td>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "center"}}>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYHLYHLYAPR}%</span>
+                </div>
+            </td>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "center"}}>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYHLYHLYLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
+                </div>
+            </td>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "center"}}>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYHLYHLYStakedPrice}</span>
+                </div>
+            </td>
+            <td style={{border: "0", padding: "10px"}}>
+              <div style={{textAlign: "center"}}>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYHLYHLYpending}</span>
                 <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
                 </div>
             </td>
@@ -2792,7 +3233,7 @@ function Farms() {
 	<div class="col2 span_1_of_2">
 	<div align="center" style={{marginTop: "20px"}}><h3 style={{marginBottom: '-15px'}}>HLY Earnings</h3><br /><span style={{fontSize: "31px", fontWeight: "100"}}>≈{
     
-    (parseFloat(HLYUSDCpending)+parseFloat(HLYONEpending)+parseFloat(HLYBTCpending)+parseFloat(HLYETHpending)+parseFloat(JEWELpending)+parseFloat(USDCpending)+parseFloat(HLYWONEpending)).toFixed(4)
+    (parseFloat(HLYUSDCpending)+parseFloat(HLYONEpending)+parseFloat(HLYBTCpending)+parseFloat(HLYETHpending)+parseFloat(JEWELpending)+parseFloat(USDCpending)+parseFloat(HLYWONEpending)+parseFloat(HLYHLYJEWpending)+parseFloat(HLYHLYHLYpending)).toFixed(4)
   
   }</span></div>
 	</div>
