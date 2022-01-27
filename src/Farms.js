@@ -1202,7 +1202,7 @@ function Farms() {
   
       var persec = (hlyPerSecond * poolWeight) / 1e18;
   
-      var hlyRewardPerYear = (hlyusdclpwei * (persec * BLOCKS_PER_YEAR) / 1e18) / hlyliquid;
+      var hlyRewardPerYear = ((hlyusdclpwei * (persec * BLOCKS_PER_YEAR) / 1e18) / hlyliquid) * 365;
   
       var HLYUSDCstaked = await masterChef.methods.userInfo(0, accounts[0]).call();
   
@@ -1325,7 +1325,7 @@ function Farms() {
   
       var persecONE = (hlyPerSecondONE * poolWeightONE) / 1e18;
   
-      var hlyRewardPerYearONE = (HLYPrices * (persecONE * BLOCKS_PER_YEAR) / 1e18) / hlyliquidONE;
+      var hlyRewardPerYearONE = ((HLYPrices * (persecONE * BLOCKS_PER_YEAR) / 1e18) / hlyliquidONE) * 365;
   
       var HLYUSDCstakedONE = await masterChefONE.methods.userInfo(1, account).call();
   
@@ -1871,7 +1871,7 @@ function Farms() {
   
       var persecHLYJEW = (hlyPerSecondHLYJEW * poolWeightHLYJEW) / 1e18;
   
-      var hlyRewardPerYearHLYJEW = (HLYPrices * (persecHLYJEW * BLOCKS_PER_YEAR) / 1e18) / hlyliquidHLYJEW;
+      var hlyRewardPerYearHLYJEW = ((HLYPrices * (persecHLYJEW * BLOCKS_PER_YEAR) / 1e18) / hlyliquidHLYJEW) * 365;
   
       var HLYUSDCstakedHLYJEW = await masterChefHLYJEW.methods.userInfo(7, account).call();
   
@@ -1966,7 +1966,7 @@ function Farms() {
   
       var persecHLYHLY = (hlyPerSecondHLYHLY * poolWeightHLYHLY) / 1e18;
   
-      var hlyRewardPerYearHLYHLY = (HLYPrices * (persecHLYHLY * BLOCKS_PER_YEAR) / 1e18) / hlyliquidHLYHLY;
+      var hlyRewardPerYearHLYHLY = ((HLYPrices * (persecHLYHLY * BLOCKS_PER_YEAR) / 1e18) / hlyliquidHLYHLY) * 365;
   
       var HLYUSDCstakedHLYHLY = await masterChefHLYHLY.methods.userInfo(8, accounts[0]).call();
   
@@ -3040,7 +3040,7 @@ function Farms() {
           </tr>
 
           
-          <tr onClick={openModalETH} style={{cursor: "pointer"}}>
+          <tr onClick={openModalETH} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
                 <img src="/eth.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
@@ -3049,7 +3049,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYETHAPR}%</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -3070,7 +3070,7 @@ function Farms() {
             </td>
           </tr>
 
-          <tr onClick={openModalBTC} style={{cursor: "pointer"}}>
+          <tr onClick={openModalBTC} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
                 <img src="/btc.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
@@ -3079,7 +3079,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYBTCAPR}%</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -3100,7 +3100,7 @@ function Farms() {
             </td>
           </tr>
 
-          <tr onClick={openModalONE} style={{cursor: "pointer"}}>
+          <tr onClick={openModalONE} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
                 <img src="/wone.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
@@ -3109,7 +3109,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYWONEAPR}%</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -3130,7 +3130,7 @@ function Farms() {
             </td>
           </tr>     
 
-          <tr onClick={openModalUSDC} style={{cursor: "pointer"}}>
+          <tr onClick={openModalUSDC} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
                 <img src="/usdc.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
@@ -3139,7 +3139,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{USDCAPR}%</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>
@@ -3160,7 +3160,7 @@ function Farms() {
             </td>
           </tr>
 
-          <tr onClick={openModalJEW} style={{cursor: "pointer"}}>
+          <tr onClick={openModalJEW} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
                 <img src="/JEWEL.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
@@ -3169,7 +3169,7 @@ function Farms() {
             </td>
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{JEWELAPR}%</span>
+                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
                 </div>
             </td>
             <td style={{border: "0", padding: "10px"}}>

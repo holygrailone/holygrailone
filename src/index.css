@@ -28,6 +28,10 @@ body {
       background-color:rgba(0, 0, 0, 0.219);
   }
 
+  .inactive {
+
+  }
+
   input[type="number"] {
       padding: 10px;
       width: 76%;
