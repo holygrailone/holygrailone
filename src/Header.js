@@ -563,7 +563,7 @@ async function load() {
        (<button id="account" onClick={openModalProfile} style={{border: "3px solid #b19328", float: "right", marginRight: "25px", cursor: "pointer", backgroundColor: "rgb(76 66 49)", color: "#FFF", padding: "10px", borderRadius: "5px"}}>{acct}</button>)
        }
        <h1>&nbsp;</h1>
-       <div align="center"><img src="/holygrailonegame.png" border="0" style={{maxWidth: "600px", width: "100%", height: "auto", marginBottom: "40px"}} align="center" /><br />
+       <div align="center"><a href="https://swap.holygrail.one" target="_blank"><img src="/holygrailonegame.png" border="0" style={{maxWidth: "600px", width: "100%", height: "auto", marginBottom: "40px"}} align="center" /></a><br />
        {/* <h1 align="center" style={{fontSize: "44px", marginBottom: "0px", marginTop: "0px"}} className="shimmer">HOLYGRAIL.ONE</h1>
        <div style={{fontSize: "14px", margin: "0 auto", marginBottom: "25px"}} align="center">One Grail to Rule Them All</div> */}
        
