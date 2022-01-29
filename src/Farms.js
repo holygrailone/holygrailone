@@ -2091,15 +2091,13 @@ function Farms() {
     // load7();
     allowance();
 
-    // const interval = setInterval(load, 20000);
-    // const interval3 = setInterval(load2, 25000);
-    // const interval2 = setInterval(allowance, 35000);
-    // const interval4 = setInterval(load3, 45000);
-    // const interval5 = setInterval(load4, 55000);
-    // const interval6 = setInterval(load5, 65000);
-    // const interval7 = setInterval(load6, 75000);
-    // const interval8 = setInterval(load7, 85000);
-    // return () => clearInterval(interval, interval2, interval3, interval4, interval5, interval6, interval7, interval8);
+    const interval = setInterval(load, 10000);
+    const interval3 = setInterval(load2, 15000);
+    const interval4 = setInterval(load8, 15000);
+    const interval5 = setInterval(load9, 15000);
+    const interval6 = setInterval(load5, 15000);
+    const interval2 = setInterval(allowance, 25000);
+    return () => clearInterval(interval, interval2, interval3, interval4, interval5, interval6);
     
   }, [erc20ABI, lpABI, masterChefABI, priceOracleABI]);
 
@@ -2904,7 +2902,7 @@ function Farms() {
             
     </div>
 <div style={{maxWidth: "1100px", margin: "0 auto"}}>
-    <h1>Grail Quests <button class="claimall" onClick={harvestAll}>Claim All</button></h1>
+    <h1>Grail Quests <form style={{display: "inline"}} action="https://swap.holygrail.one/swap?inputCurrency=ONE&outputCurrency=0x8D760497554eecC3B9036fb0364156ef2F0D02BC"><button className="claimall" onClick={harvestAll}>Claim All</button><button type="submit" className="claimall" style={{marginRight: "25px"}}>Buy HLY ↗</button></form></h1>
 </div>
     <div style={{backgroundColor: "#4C4231DE", color: "#FFF", maxWidth: "1100px", margin: "0 auto", marginTop: "25px", borderRadius: "13px", padding: "30px"}}>
 
