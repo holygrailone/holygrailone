@@ -1026,7 +1026,7 @@ function Farms() {
 
   const [HLYmcap, setHLYMCap] = useState(0);
 
-  const web3h = new Web3('https://api.harmony.one');
+  const web3h = new Web3(window.ethereum);
 
   //HLY-USDC LP
   const [HLYPrice, setHLYUSDCPrice] = useState(0);
@@ -2084,11 +2084,11 @@ function Farms() {
     load2();
     load8();
     load9();
-    load3();
-    load4();
+    // load3();
+    // load4();
     load5();
-    load6();
-    load7();
+    // load6();
+    // load7();
     allowance();
 
     // const interval = setInterval(load, 20000);
@@ -2122,11 +2122,11 @@ function Farms() {
         this.load2();
         this.load8();
         this.load9();
-        this.load3();
-        this.load4();
+        // this.load3();
+        // this.load4();
         this.load5();
-        this.load6();
-        this.load7();
+        // this.load6();
+        // this.load7();
       })
       .catch(error => {
         console.log(error);
@@ -2206,11 +2206,11 @@ function Farms() {
           this.load2();
           this.load8();
           this.load9();
-          this.load3();
-          this.load4();
+          // this.load3();
+          // this.load4();
           this.load5();
-          this.load6();
-          this.load7();
+          // this.load6();
+          // this.load7();
         })
         .catch(error => {
           console.log(error);
@@ -2228,11 +2228,11 @@ function Farms() {
           this.load2();
           this.load8();
           this.load9();
-          this.load3();
-          this.load4();
+          // this.load3();
+          // this.load4();
           this.load5();
-          this.load6();
-          this.load7();
+          // this.load6();
+          // this.load7();
         })
         .catch(error => {
           console.log(error);
@@ -2249,11 +2249,11 @@ function Farms() {
         this.load2();
         this.load8();
         this.load9();
-        this.load3();
-        this.load4();
+        // this.load3();
+        // this.load4();
         this.load5();
-        this.load6();
-        this.load7();
+        // this.load6();
+        // this.load7();
       })
       .catch(error => {
         console.log(error);
@@ -2284,11 +2284,11 @@ function Farms() {
             this.load2();
             this.load8();
             this.load9();
-            this.load3();
-            this.load4();
+            // this.load3();
+            // this.load4();
             this.load5();
-            this.load6();
-            this.load7();
+            // this.load6();
+            // this.load7();
           })
           .catch(error => {
             console.log(error);
@@ -2307,11 +2307,11 @@ function Farms() {
             this.load2();
             this.load8();
             this.load9();
-            this.load3();
-            this.load4();
+            // this.load3();
+            // this.load4();
             this.load5();
-            this.load6();
-            this.load7();
+            // this.load6();
+            // this.load7();
           })
           .catch(error => {
             console.log(error);
@@ -2329,11 +2329,11 @@ function Farms() {
           this.load2();
           this.load8();
           this.load9();
-          this.load3();
-          this.load4();
+          // this.load3();
+          // this.load4();
           this.load5();
-          this.load6();
-          this.load7();
+          // this.load6();
+          // this.load7();
         })
         .catch(error => {
           console.log(error);
@@ -2361,11 +2361,11 @@ function Farms() {
         this.load2();
         this.load8();
         this.load9();
-        this.load3();
-        this.load4();
+        // this.load3();
+        // this.load4();
         this.load5();
-        this.load6();
-        this.load7();
+        // this.load6();
+        // this.load7();
       })
       .catch(error => {
         console.log(error);
@@ -2387,11 +2387,11 @@ function Farms() {
       this.load2();
       this.load8();
       this.load9();
-      this.load3();
-      this.load4();
+      // this.load3();
+      // this.load4();
       this.load5();
-      this.load6();
-      this.load7();
+      // this.load6();
+      // this.load7();
     })
     .catch(error => {
       console.log(error);
@@ -3040,7 +3040,7 @@ function Farms() {
           </tr>
 
           
-          <tr onClick={openModalETH} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
+          {/* <tr onClick={openModalETH} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
                 <img src="/eth.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
@@ -3098,7 +3098,7 @@ function Farms() {
                 <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
                 </div>
             </td>
-          </tr>
+          </tr> */}
 
           <tr onClick={openModalONE} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
@@ -3130,7 +3130,7 @@ function Farms() {
             </td>
           </tr>     
 
-          <tr onClick={openModalUSDC} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
+          {/* <tr onClick={openModalUSDC} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
               <div style={{textAlign: "left"}}>
                 <img src="/usdc.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
@@ -3188,7 +3188,7 @@ function Farms() {
                 <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
                 </div>
             </td>
-          </tr>
+          </tr> */}
 
           {/* <tr>
             <td style={{border: "0", padding: "10px"}}>
