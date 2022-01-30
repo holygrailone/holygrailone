@@ -528,6 +528,33 @@ async function load() {
         setIsOpenProfile(false);
     }
 
+    function disableFX(e) {
+        e.preventDefault();
+
+        var disabled = false;
+
+        if (disabled === false) {
+            document.getElementById("firefly1").style.display = 'none';
+            document.getElementById("firefly2").style.display = 'none';
+            document.getElementById("firefly3").style.display = 'none';
+            document.getElementById("firefly4").style.display = 'none';
+            document.getElementById("firefly5").style.display = 'none';
+            document.getElementById("firefly6").style.display = 'none';
+            document.getElementById("firefly7").style.display = 'none';
+            document.getElementById("firefly8").style.display = 'none';
+            document.getElementById("firefly9").style.display = 'none';
+            document.getElementById("firefly10").style.display = 'none';
+            document.getElementById("firefly11").style.display = 'none';
+            document.getElementById("firefly12").style.display = 'none';
+            document.getElementById("firefly13").style.display = 'none';
+            document.getElementById("disable").style.display = 'none';
+            disabled = true;
+        } else {
+
+            // tbc
+        }
+    }
+
   
   return (
     <div>
@@ -553,6 +580,10 @@ async function load() {
 
         <p><div><a href={"https://explorer.harmony.one/address/"+account} target="_blank">View on Harmony Explorer 🔗</a></div></p>
       </Modal>
+
+      <div className="togglefirefly" style={{margin:"15px"}}>
+          <button onClick={(e) => disableFX(e)} id="disable" style={{cursor: "pointer", backgroundColor: "rgb(76, 66, 49)", color: "#FFF", border: "3px solid rgb(177, 147, 40)", borderRadius: "5px", padding: "5px", width: "150px", float: "left"}}>Disable FX</button>
+      </div>
 
        {!(account) ? 
        

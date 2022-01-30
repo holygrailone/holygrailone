@@ -2092,10 +2092,10 @@ function Farms() {
     allowance();
 
     const interval = setInterval(load, 10000);
-    const interval3 = setInterval(load2, 15000);
-    const interval4 = setInterval(load8, 15000);
-    const interval5 = setInterval(load9, 15000);
-    const interval6 = setInterval(load5, 15000);
+    const interval3 = setInterval(load2, 10000);
+    const interval4 = setInterval(load8, 10000);
+    const interval5 = setInterval(load9, 10000);
+    const interval6 = setInterval(load5, 10000);
     const interval2 = setInterval(allowance, 25000);
     return () => clearInterval(interval, interval2, interval3, interval4, interval5, interval6);
     
