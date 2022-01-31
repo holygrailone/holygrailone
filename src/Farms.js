@@ -10,58 +10,8 @@ import { priceOracleABI } from "./resources/priceOracleABI";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    maxWidth: "500px",
-    minWidth: "350px",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#463C2D",
-    border: "0",
-    padding: "30px",
-    borderRadius: "13px",
-  },
-  hlyEarningsGrid: {
-    marginLeft: "30%",
-  },
-  hlyEarningsGap: {
-    width: 15,
-    display: "inline-block",
-  },
-  hlyEarningsAmount: {
-    fontSize: "18px",
-    fontWeight: "100",
-    textAlign: "start",
-  },
-  hlyQuestRowGrid: {
-    display: "grid",
-    gridTemplateColumns: "3fr 2fr 2fr 2fr 3fr",
-    cursor: "pointer",
-  },
-  grailQuestIcon: {
-    width: "30px",
-    height: "30px",
-    marginRight: "10px",
-    marginBottom: "-8px",
-  },
-};
-
-const hlyIcon = (
-  <img
-    alt=""
-    src="/hly.png"
-    style={{
-      width: "20px",
-      height: "20px",
-      marginTop: "3px",
-      marginBottom: "-3px",
-    }}
-  />
-);
+import { customStyles } from "./farms/FarmsStyles";
+import { hlyIcon } from "./farms/FarmsUtils";
 
 function Farms() {
   const grailQuestRow = (
@@ -156,19 +106,11 @@ function Farms() {
 
   const [modalIsOpenONE, setIsOpenONE] = React.useState(false);
 
-  function openModalONE() {
-    setIsOpenONE(true);
-  }
-
   function closeModalONE() {
     setIsOpenONE(false);
   }
 
   const [modalIsOpenETH, setIsOpenETH] = React.useState(false);
-
-  function openModalETH() {
-    setIsOpenETH(true);
-  }
 
   function closeModalETH() {
     setIsOpenETH(false);
@@ -176,29 +118,17 @@ function Farms() {
 
   const [modalIsOpenBTC, setIsOpenBTC] = React.useState(false);
 
-  function openModalBTC() {
-    setIsOpenBTC(true);
-  }
-
   function closeModalBTC() {
     setIsOpenBTC(false);
   }
 
   const [modalIsOpenUSDC, setIsOpenUSDC] = React.useState(false);
 
-  function openModalUSDC() {
-    setIsOpenUSDC(true);
-  }
-
   function closeModalUSDC() {
     setIsOpenUSDC(false);
   }
 
   const [modalIsOpenJEW, setIsOpenJEW] = React.useState(false);
-
-  function openModalJEW() {
-    setIsOpenJEW(true);
-  }
 
   function closeModalJEW() {
     setIsOpenJEW(false);
@@ -331,12 +261,13 @@ function Farms() {
   const [hlyhlyhlyallowed, setHLYHLYHLYAllowed] = useState(false);
 
   useEffect(() => {
+    const web3 = new Web3(window.ethereum);
+    var accounts;
+
     async function listenMMAccount() {
       window.ethereum.on("accountsChanged", async function () {
-        // Time to reload your interface with accounts[0]!
-        const web3 = new Web3(window.ethereum);
-        var accounts = await web3.eth.getAccounts();
-        // accounts = await web3.eth.getAccounts();
+        // Time to reload your interface with account!
+        accounts = await web3.eth.getAccounts();
         setAccount(accounts);
         console.log(accounts);
         // window.location.reload();
@@ -344,27 +275,29 @@ function Farms() {
     }
     listenMMAccount();
 
+    // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
+    // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
+    // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
+    // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
+    const BLOCKS_PER_YEAR = 15768000 * 1e18;
+
+    async function initialiseAccounts() {
+      await window.ethereum.send("eth_requestAccounts");
+    }
+
+    initialiseAccounts();
+
+    const account = accounts[0];
+    var modacct = account.slice(0, 15) + "...";
+    document.getElementById("account").innerHTML = modacct;
+
+    const priceFeed = new web3h.eth.Contract(
+      priceOracleABI,
+      "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
+    );
+
     async function load() {
       try {
-        // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-        // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-        // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-        // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
         // HLY-USDC LP
         const lptoken = new web3h.eth.Contract(
           lpABI,
@@ -390,9 +323,9 @@ function Farms() {
 
         var hlyusdclpwei = (oneprice / (hlyusdclp / 1e18)).toFixed(5);
 
-        var hlyusdcbal = await lptoken.methods.balanceOf(accounts[0]).call();
+        var hlyusdcbal = await lptoken.methods.balanceOf(account).call();
 
-        var hlybal = await hlytoken.methods.balanceOf(accounts[0]).call();
+        var hlybal = await hlytoken.methods.balanceOf(account).call();
 
         var hlyusdcformat = web3.utils.fromWei(hlyusdcbal, "ether");
 
@@ -420,7 +353,7 @@ function Farms() {
           365;
 
         var HLYUSDCstaked = await masterChef.methods
-          .userInfo(0, accounts[0])
+          .userInfo(0, account)
           .call();
 
         var HLYUSDCstakedwei = web3.utils.fromWei(
@@ -432,7 +365,7 @@ function Farms() {
           (hlyliquid / hlyusdctotallptoken) * HLYUSDCstakedwei * 1e18;
 
         var HLYUSDCpending = await masterChef.methods
-          .pendingHLY(0, accounts[0])
+          .pendingHLY(0, account)
           .call();
 
         var HLYUSDCpendingwei = HLYUSDCpending / 1e18;
@@ -448,7 +381,7 @@ function Farms() {
           var tier = (Math.log10(Math.abs(number)) / 3) | 0;
 
           // if zero, we don't need a suffix
-          if (tier == 0) return number;
+          if (tier === 0) return number;
 
           // get suffix and determine scale
           var suffix = SI_SYMBOL[tier];
@@ -499,29 +432,7 @@ function Farms() {
     }
 
     async function load2() {
-      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-
       try {
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        const account = accounts[0];
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
         // HLY-ONE LP
         const lptokenONE = new web3h.eth.Contract(
           lpABI,
@@ -635,315 +546,12 @@ function Farms() {
       }
     }
 
-    async function load3() {
-      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-
-      try {
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
-        // 1ETH Pool
-        const lptokenETH = new web3h.eth.Contract(
-          erc20ABI,
-          "0x6983D1E6DEf3690C4d616b13597A09e6193EA013"
-        );
-
-        const hlytokenETH = new web3h.eth.Contract(
-          erc20ABI,
-          "0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
-        );
-
-        const masterChefETH = new web3h.eth.Contract(
-          masterChefABI,
-          "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
-        );
-
-        const hlyusdclp = await priceFeed.methods
-          .getLatestTokenPrice("0x387d00b1c74e60e7627b7048818372b1b4ec2e3f", 1)
-          .call();
-
-        const hlyusdclpETH = await priceFeed.methods
-          .getLatestTokenPrice("0x864fcd9a42a5f6e0f76bc309ee26c8fab473fc3e", 1)
-          .call();
-
-        const getonepriceETH = await priceFeed.methods
-          .getLatestONEPrice()
-          .call();
-
-        var formatETH = hlyusdclpETH / 1e18;
-
-        var calcETH = 1 / formatETH;
-
-        var ETHprice = (calcETH * getonepriceETH) / 1e8;
-
-        var hlyusdclpweiETH = (hlyusdclp / 1e18).toFixed(3);
-
-        var hlyusdcbalETH = await lptokenETH.methods
-          .balanceOf(accounts[0])
-          .call();
-
-        var hlyusdcformatETH = web3.utils.fromWei(hlyusdcbalETH, "ether");
-
-        var hlyusdcliquidETH = await lptokenETH.methods
-          .balanceOf("0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
-          .call();
-
-        var hlyusdctotallptokenETH = await lptokenETH.methods
-          .totalSupply()
-          .call();
-
-        var hlyliquidETH = (hlyusdcliquidETH / 1e18) * ETHprice;
-
-        var hlyPerSecondETH = await masterChefETH.methods.hlyPerSecond().call();
-
-        var allocPointETH = await masterChefETH.methods
-          .totalAllocPoint()
-          .call();
-
-        var poolAllocPointETH = await masterChefETH.methods.poolInfo(2).call();
-
-        var poolWeightETH = poolAllocPointETH.allocPoint / allocPointETH;
-
-        var persecETH = (hlyPerSecondETH * poolWeightETH) / 1e18;
-
-        const oneprice =
-          (await priceFeed.methods.getLatestONEPrice().call()) / 1e8;
-
-        const holyprice = await priceFeed.methods
-          .getLatestTokenPrice("0x3e478ed607f79a50f286a5a6ce52a049897291b2", 1)
-          .call();
-
-        var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
-
-        var hlyRewardPerYearETH =
-          (HLYPrices * (persecETH * BLOCKS_PER_YEAR)) / 1e18 / hlyliquidETH;
-
-        var HLYUSDCstakedETH = await masterChefETH.methods
-          .userInfo(2, accounts[0])
-          .call();
-
-        var HLYUSDCstakedweiETH = web3.utils.fromWei(
-          HLYUSDCstakedETH.amount,
-          "ether"
-        );
-
-        var HLYUSDCstakedusdcETH = HLYUSDCstakedweiETH * ETHprice;
-
-        var HLYUSDCpendingETH = await masterChefETH.methods
-          .pendingHLY(2, accounts[0])
-          .call();
-
-        var HLYUSDCpendingweiETH = HLYUSDCpendingETH / 1e18;
-
-        setHLYETHPrice(ETHprice);
-        setHLYETHBal(hlyusdcformatETH);
-        setHLYETHLiquid(hlyliquidETH);
-        setHLYETHAPR(
-          hlyRewardPerYearETH.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setHLYETHStakedPrice(
-          HLYUSDCstakedusdcETH.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setHLYETHStaked(HLYUSDCstakedweiETH);
-
-        setHLYETHpending(HLYUSDCpendingweiETH.toFixed(4));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    async function load4() {
-      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-
-      try {
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
-        // 1BTC Pool
-        const lptokenBTC = new web3h.eth.Contract(
-          erc20ABI,
-          "0x3095c7557bCb296ccc6e363DE01b760bA031F2d9"
-        );
-
-        const hlytokenBTC = new web3h.eth.Contract(
-          erc20ABI,
-          "0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
-        );
-
-        const masterChefBTC = new web3h.eth.Contract(
-          masterChefABI,
-          "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
-        );
-
-        const hlyusdclp = await priceFeed.methods
-          .getLatestTokenPrice("0x387d00b1c74e60e7627b7048818372b1b4ec2e3f", 1)
-          .call();
-
-        const hlyusdclpBTC = await priceFeed.methods
-          .getLatestTokenPrice("0xc3670b927ef42eed252e483e2446352c238d9905", 1)
-          .call();
-
-        const getonepriceBTC = await priceFeed.methods
-          .getLatestONEPrice()
-          .call();
-
-        var formatBTC = hlyusdclpBTC / 1e18;
-
-        var calcBTC = 1 / formatBTC;
-
-        var BTCprice = (calcBTC * getonepriceBTC) / 1e8;
-
-        var hlyusdclpweiBTC = (hlyusdclp / 1e18).toFixed(3);
-
-        var hlyusdcbalBTC = await lptokenBTC.methods
-          .balanceOf(accounts[0])
-          .call();
-
-        var hlyusdcformatBTC = hlyusdcbalBTC / 1e8;
-
-        var hlyusdcliquidBTC = await lptokenBTC.methods
-          .balanceOf("0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
-          .call();
-
-        var hlyusdctotallptokenBTC = await lptokenBTC.methods
-          .totalSupply()
-          .call();
-
-        var hlyliquidBTC = (hlyusdcliquidBTC / 1e18) * BTCprice;
-
-        var hlyPerSecondBTC = await masterChefBTC.methods.hlyPerSecond().call();
-
-        var allocPointBTC = await masterChefBTC.methods
-          .totalAllocPoint()
-          .call();
-
-        var poolAllocPointBTC = await masterChefBTC.methods.poolInfo(3).call();
-
-        var poolWeightBTC = poolAllocPointBTC.allocPoint / allocPointBTC;
-
-        var persecBTC = (hlyPerSecondBTC * poolWeightBTC) / 1e18;
-
-        const oneprice =
-          (await priceFeed.methods.getLatestONEPrice().call()) / 1e8;
-
-        const holyprice = await priceFeed.methods
-          .getLatestTokenPrice("0x3e478ed607f79a50f286a5a6ce52a049897291b2", 1)
-          .call();
-
-        var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
-
-        var hlyRewardPerYearBTC =
-          (HLYPrices * (persecBTC * BLOCKS_PER_YEAR)) / 1e18 / hlyliquidBTC;
-
-        var HLYUSDCstakedBTC = await masterChefBTC.methods
-          .userInfo(3, accounts[0])
-          .call();
-
-        var HLYUSDCstakedweiBTC =
-          web3.utils.fromWei(HLYUSDCstakedBTC.amount, "gwei") * 10;
-
-        var HLYUSDCstakedusdcBTC = HLYUSDCstakedweiBTC * (BTCprice / 1e10);
-
-        var HLYUSDCpendingBTC = await masterChefBTC.methods
-          .pendingHLY(3, accounts[0])
-          .call();
-
-        var HLYUSDCpendingweiBTC = HLYUSDCpendingBTC / 1e18;
-
-        setHLYBTCPrice(BTCprice);
-        setHLYBTCBal(hlyusdcformatBTC);
-        setHLYBTCLiquid(hlyliquidBTC);
-        setHLYBTCAPR(
-          hlyRewardPerYearBTC.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setHLYBTCStakedPrice(
-          HLYUSDCstakedusdcBTC.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setHLYBTCStaked(HLYUSDCstakedweiBTC);
-
-        setHLYBTCpending(HLYUSDCpendingweiBTC.toFixed(4));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
     async function load5() {
-      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-
       try {
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
         // WONE Pool
         const lptokenWONE = new web3h.eth.Contract(
           erc20ABI,
           "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a"
-        );
-
-        const hlytokenWONE = new web3h.eth.Contract(
-          erc20ABI,
-          "0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
         );
 
         const masterChefWONE = new web3h.eth.Contract(
@@ -951,20 +559,14 @@ function Farms() {
           "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
         );
 
-        const hlyusdclp = await priceFeed.methods
-          .getLatestTokenPrice("0x387d00b1c74e60e7627b7048818372b1b4ec2e3f", 1)
-          .call();
-
         const getonepriceWONE = await priceFeed.methods
           .getLatestONEPrice()
           .call();
 
         var WONEprice = getonepriceWONE / 1e8;
 
-        var hlyusdclpweiWONE = (hlyusdclp / 1e18).toFixed(3);
-
         var hlyusdcbalWONE = await lptokenWONE.methods
-          .balanceOf(accounts[0])
+          .balanceOf(account)
           .call();
 
         var hlyusdcformatWONE = web3.utils.fromWei(hlyusdcbalWONE, "ether");
@@ -1004,7 +606,7 @@ function Farms() {
           (HLYPrices * (persecWONE * BLOCKS_PER_YEAR)) / 1e18 / hlyliquidWONE;
 
         var HLYUSDCstakedWONE = await masterChefWONE.methods
-          .userInfo(4, accounts[0])
+          .userInfo(4, account)
           .call();
 
         var HLYUSDCstakedweiWONE = web3.utils.fromWei(
@@ -1015,7 +617,7 @@ function Farms() {
         var HLYUSDCstakedusdcWONE = HLYUSDCstakedweiWONE * WONEprice;
 
         var HLYUSDCpendingWONE = await masterChefWONE.methods
-          .pendingHLY(4, accounts[0])
+          .pendingHLY(4, account)
           .call();
 
         var HLYUSDCpendingweiWONE = HLYUSDCpendingWONE / 1e18;
@@ -1045,293 +647,8 @@ function Farms() {
       }
     }
 
-    async function load6() {
-      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-
-      try {
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
-        // 1USDC Pool
-        const lptokenUSDC = new web3h.eth.Contract(
-          erc20ABI,
-          "0x985458e523db3d53125813ed68c274899e9dfab4"
-        );
-
-        const hlytokenUSDC = new web3h.eth.Contract(
-          erc20ABI,
-          "0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
-        );
-
-        const masterChefUSDC = new web3h.eth.Contract(
-          masterChefABI,
-          "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
-        );
-
-        const hlyusdclp = await priceFeed.methods
-          .getLatestTokenPrice("0x387d00b1c74e60e7627b7048818372b1b4ec2e3f", 1)
-          .call();
-
-        var USDCprice = 1;
-
-        var hlyusdclpweiUSDC = (hlyusdclp / 1e18).toFixed(3);
-
-        var hlyusdcbalUSDC = await lptokenUSDC.methods
-          .balanceOf(accounts[0])
-          .call();
-
-        var hlyusdcformatUSDC = hlyusdcbalUSDC / 1e6;
-
-        var hlyusdcliquidUSDC = await lptokenUSDC.methods
-          .balanceOf("0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
-          .call();
-
-        var hlyusdctotallptokenUSDC = await lptokenUSDC.methods
-          .totalSupply()
-          .call();
-
-        var hlyliquidUSDC =
-          web3.utils.fromWei(hlyusdcliquidUSDC, "gwei") * 1000;
-
-        var hlyPerSecondUSDC = await masterChefUSDC.methods
-          .hlyPerSecond()
-          .call();
-
-        var allocPointUSDC = await masterChefUSDC.methods
-          .totalAllocPoint()
-          .call();
-
-        var poolAllocPointUSDC = await masterChefUSDC.methods
-          .poolInfo(5)
-          .call();
-
-        var poolWeightUSDC = poolAllocPointUSDC.allocPoint / allocPointUSDC;
-
-        var persecUSDC = (hlyPerSecondUSDC * poolWeightUSDC) / 1e18;
-
-        const oneprice =
-          (await priceFeed.methods.getLatestONEPrice().call()) / 1e8;
-
-        const holyprice = await priceFeed.methods
-          .getLatestTokenPrice("0x3e478ed607f79a50f286a5a6ce52a049897291b2", 1)
-          .call();
-
-        var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
-
-        var hlyRewardPerYearUSDC =
-          (HLYPrices * (persecUSDC * BLOCKS_PER_YEAR)) / 1e18 / hlyliquidUSDC;
-
-        var HLYUSDCstakedUSDC = await masterChefUSDC.methods
-          .userInfo(5, accounts[0])
-          .call();
-
-        var HLYUSDCstakedweiUSDC = (
-          web3.utils.fromWei(HLYUSDCstakedUSDC.amount, "gwei") * 1000
-        ).toFixed(6);
-
-        var HLYUSDCstakedusdcUSDC =
-          web3.utils.fromWei(HLYUSDCstakedUSDC.amount, "gwei") * 1000;
-
-        var HLYUSDCpendingUSDC = await masterChefUSDC.methods
-          .pendingHLY(5, accounts[0])
-          .call();
-
-        var HLYUSDCpendingweiUSDC = HLYUSDCpendingUSDC / 1e18;
-
-        setUSDCPrice(USDCprice);
-        setUSDCBal(hlyusdcformatUSDC);
-        setUSDCLiquid(hlyliquidUSDC);
-        setUSDCAPR(
-          hlyRewardPerYearUSDC.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setUSDCStakedPrice(
-          HLYUSDCstakedusdcUSDC.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setUSDCStaked(HLYUSDCstakedweiUSDC);
-
-        setUSDCpending(HLYUSDCpendingweiUSDC.toFixed(4));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    async function load7() {
-      try {
-        // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-        // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-        // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-        // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
-        // JEWEL Pool
-        const lptoken = new web3h.eth.Contract(
-          lpABI,
-          "0x72cb10c6bfa5624dd07ef608027e366bd690048f"
-        );
-
-        const hlytoken = new web3h.eth.Contract(
-          erc20ABI,
-          "0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
-        );
-
-        const masterChef = new web3h.eth.Contract(
-          masterChefABI,
-          "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
-        );
-
-        const hlyusdclp = await priceFeed.methods
-          .getLatestTokenPrice("0x387d00b1c74e60e7627b7048818372b1b4ec2e3f", 1)
-          .call();
-
-        var hlyusdclpwei = (hlyusdclp / 1e18).toFixed(3);
-
-        var hlyusdcbal = await lptoken.methods.balanceOf(accounts[0]).call();
-
-        var hlyusdcformat = web3.utils.fromWei(hlyusdcbal, "ether");
-
-        var hlyusdcliquid = await hlytoken.methods
-          .balanceOf("0x387d00b1c74e60e7627b7048818372b1b4ec2e3f")
-          .call();
-
-        var masterjewliquid = await lptoken.methods
-          .balanceOf("0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
-          .call();
-
-        var jewsprice = await priceFeed.methods
-          .getLatestTokenPrice("0xa1221a5bbea699f507cc00bdedea05b5d2e32eba", 1)
-          .call();
-
-        var jewspricewei = (jewsprice / 1e16).toFixed(2);
-
-        var hlyusdctotallptoken = await lptoken.methods.totalSupply().call();
-
-        var hlyliquid =
-          web3.utils.fromWei(hlyusdcliquid, "ether") * hlyusdclpwei * 2;
-
-        var jewliquid =
-          web3.utils.fromWei(masterjewliquid, "ether") * jewspricewei;
-
-        var hlyPerSecond = await masterChef.methods.hlyPerSecond().call();
-
-        var allocPoint = await masterChef.methods.totalAllocPoint().call();
-
-        var poolAllocPoint = await masterChef.methods.poolInfo(6).call();
-
-        var poolWeight = poolAllocPoint.allocPoint / allocPoint;
-
-        var persec = (hlyPerSecond * poolWeight) / 1e18;
-
-        const oneprice =
-          (await priceFeed.methods.getLatestONEPrice().call()) / 1e8;
-
-        const holyprice = await priceFeed.methods
-          .getLatestTokenPrice("0x3e478ed607f79a50f286a5a6ce52a049897291b2", 1)
-          .call();
-
-        var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
-
-        var hlyRewardPerYear =
-          (HLYPrices * (persec * BLOCKS_PER_YEAR)) / 1e18 / jewliquid;
-
-        var JEWELstaked = await masterChef.methods
-          .userInfo(6, accounts[0])
-          .call();
-
-        var JEWELstakedwei = web3.utils.fromWei(JEWELstaked.amount, "ether");
-
-        var JEWELstakedusdc = JEWELstakedwei * jewspricewei;
-
-        var JEWELpending = await masterChef.methods
-          .pendingHLY(6, accounts[0])
-          .call();
-
-        var JEWELpendingwei = JEWELpending / 1e18;
-
-        setJEWELPrice(hlyusdclpwei);
-        setJEWELBal(hlyusdcformat);
-        setJEWELLiquid(jewliquid);
-        setJEWELAPR(
-          hlyRewardPerYear.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setJEWELStakedPrice(
-          JEWELstakedusdc.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setJEWELStaked(JEWELstakedwei);
-
-        setJEWELpending(JEWELpendingwei.toFixed(4));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
     async function load8() {
-      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-
       try {
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        const account = accounts[0];
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
         // HLY-JEWEL LP
         const lptokenHLYJEW = new web3h.eth.Contract(
           lpABI,
@@ -1373,10 +690,6 @@ function Farms() {
 
         var hlyusdcformatHLYJEW = web3.utils.fromWei(hlyusdcbalHLYJEW, "ether");
 
-        var totalliquidityHLYJEW = await lptokenHLYJEW.methods
-          .balanceOf("0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
-          .call();
-
         var hlyusdcliquid = await hlytoken.methods
           .balanceOf("0x7b886d19e5ee9e3188eb29037de21dce944ae0ef")
           .call();
@@ -1389,11 +702,7 @@ function Farms() {
 
         // console.log(hlyusdcliquid/1e18 * HLYPrices * 2)
 
-        var liquidcalc = (hlyusdcliquid / 1e18) * hlyusdclpweiHLYJEW * 2;
-
         // console.log(liquidcalc);
-
-        var priceperLP = liquidcalc / (hlyusdctotallptokenHLYJEW / 1e18);
 
         var hlyliquidHLYJEW = (hlyusdcliquid / 1e18) * HLYPrices * 2;
 
@@ -1466,34 +775,9 @@ function Farms() {
     }
 
     async function load9() {
-      // HLY 0x8D760497554eecC3B9036fb0364156ef2F0D02BC
-      // MasterChef 0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78
-      // HLY-USDC LP 0x387d00b1c74e60e7627b7048818372b1b4ec2e3f
-      // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
-
       try {
-        const BLOCKS_PER_YEAR = 15768000 * 1e18;
-
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.send("eth_requestAccounts");
-
-        var accounts = await web3.eth.getAccounts();
-
-        var modacct = accounts[0].slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        const priceFeed = new web3h.eth.Contract(
-          priceOracleABI,
-          "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
-        );
-
         // HLY Pool
         const lptokenHLYHLY = new web3h.eth.Contract(
-          erc20ABI,
-          "0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
-        );
-
-        const hlytokenHLYHLY = new web3h.eth.Contract(
           erc20ABI,
           "0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
         );
@@ -1503,23 +787,9 @@ function Farms() {
           "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
         );
 
-        const hlyusdclp = await priceFeed.methods
-          .getLatestTokenPrice("0x387d00b1c74e60e7627b7048818372b1b4ec2e3f", 1)
-          .call();
-
         const hlyusdclpHLYHLY = await priceFeed.methods
           .getLatestTokenPrice("0x387d00b1c74e60e7627b7048818372b1b4ec2e3f", 1)
           .call();
-
-        const getonepriceHLYHLY = await priceFeed.methods
-          .getLatestONEPrice()
-          .call();
-
-        var formatHLYHLY = hlyusdclpHLYHLY / 1e18;
-
-        var calcHLYHLY = 1 / formatHLYHLY;
-
-        var HLYHLYprice = (calcHLYHLY * getonepriceHLYHLY) / 1e18;
 
         const oneprice =
           (await priceFeed.methods.getLatestONEPrice().call()) / 1e8;
@@ -1530,20 +800,14 @@ function Farms() {
 
         var HLYPrices = (oneprice / (holyprice / 1e18)).toFixed(5);
 
-        var hlyusdclpweiHLYHLY = (hlyusdclp / 1e18).toFixed(3);
-
         var hlyusdcbalHLYHLY = await lptokenHLYHLY.methods
-          .balanceOf(accounts[0])
+          .balanceOf(account)
           .call();
 
         var hlyusdcformatHLYHLY = hlyusdcbalHLYHLY / 1e18;
 
         var hlyusdcliquidHLYHLY = await lptokenHLYHLY.methods
           .balanceOf("0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
-          .call();
-
-        var hlyusdctotallptokenHLYHLY = await lptokenHLYHLY.methods
-          .totalSupply()
           .call();
 
         var hlyliquidHLYHLY = (hlyusdcliquidHLYHLY / 1e18) * HLYPrices;
@@ -1574,7 +838,7 @@ function Farms() {
           365;
 
         var HLYUSDCstakedHLYHLY = await masterChefHLYHLY.methods
-          .userInfo(8, accounts[0])
+          .userInfo(8, account)
           .call();
 
         var HLYUSDCstakedweiHLYHLY = web3.utils.fromWei(
@@ -1585,7 +849,7 @@ function Farms() {
         var HLYUSDCstakedusdcHLYHLY = HLYUSDCstakedweiHLYHLY * HLYPrices;
 
         var HLYUSDCpendingHLYHLY = await masterChefHLYHLY.methods
-          .pendingHLY(8, accounts[0])
+          .pendingHLY(8, account)
           .call();
 
         var HLYUSDCpendingweiHLYHLY = HLYUSDCpendingHLYHLY / 1e18;
@@ -1616,11 +880,8 @@ function Farms() {
     }
 
     async function allowance() {
-      // e.preventDefault();
       try {
-        const web3 = new Web3(window.ethereum);
         await window.ethereum.send("eth_requestAccounts");
-        var accounts = await web3.eth.getAccounts();
 
         const lpt = new web3h.eth.Contract(
           lpABI,
@@ -1628,7 +889,7 @@ function Farms() {
         );
 
         const allowed = await lpt.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowed > 0) {
@@ -1641,7 +902,7 @@ function Farms() {
         );
 
         const allowedone = await lpt2.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowedone > 0) {
@@ -1654,7 +915,7 @@ function Farms() {
         );
 
         const allowedeth = await lpt3.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowedeth > 0) {
@@ -1667,7 +928,7 @@ function Farms() {
         );
 
         const allowedbtc = await lpt4.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowedbtc > 0) {
@@ -1680,7 +941,7 @@ function Farms() {
         );
 
         const allowedwone = await lpt5.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowedwone > 0) {
@@ -1693,7 +954,7 @@ function Farms() {
         );
 
         const allowedusdc = await lpt6.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowedusdc > 0) {
@@ -1706,7 +967,7 @@ function Farms() {
         );
 
         const allowedjew = await lpt7.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowedjew > 0) {
@@ -1719,7 +980,7 @@ function Farms() {
         );
 
         const allowedhlyjew = await lpt8.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowedhlyjew > 0) {
@@ -1732,7 +993,7 @@ function Farms() {
         );
 
         const allowedhlyhly = await lpt9.methods
-          .allowance(accounts[0], "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
+          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
           .call();
 
         if (allowedhlyhly > 0) {
@@ -1747,11 +1008,7 @@ function Farms() {
     load2();
     load8();
     load9();
-    // load3();
-    // load4();
     load5();
-    // load6();
-    // load7();
     allowance();
 
     const interval = setInterval(load, 10000);
@@ -1776,8 +1033,6 @@ function Farms() {
     const web3 = new Web3(window.ethereum);
     await window.ethereum.send("eth_requestAccounts");
 
-    var accounts = await web3.eth.getAccounts();
-
     const erc20 = new web3.eth.Contract(erc20ABI, token);
 
     erc20.methods
@@ -1785,18 +1040,14 @@ function Farms() {
         "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78",
         "1000000000000000000000000000"
       )
-      .send({ from: accounts[0] })
+      .send({ from: account })
       .once("receipt", (receipt) => {
         console.log(receipt);
         this.load();
         this.load2();
         this.load8();
         this.load9();
-        // this.load3();
-        // this.load4();
         this.load5();
-        // this.load6();
-        // this.load7();
       })
       .catch((error) => {
         console.log(error);
@@ -1809,69 +1060,8 @@ function Farms() {
     const web3 = new Web3(window.ethereum);
     await window.ethereum.send("eth_requestAccounts");
 
-    function isString(s) {
-      return typeof s === "string" || s instanceof String;
-    }
-
-    function toBaseUnit(value, decimals, BN) {
-      if (!isString(value)) {
-        throw new Error(
-          "Pass strings to prevent floating point precision issues."
-        );
-      }
-      const ten = new BN(10);
-      const base = ten.pow(new BN(decimals));
-
-      // Is it negative?
-      let negative = value.substring(0, 1) === "-";
-      if (negative) {
-        value = value.substring(1);
-      }
-
-      if (value === ".") {
-        throw new Error(
-          `Invalid value ${value} cannot be converted to` +
-            ` base unit with ${decimals} decimals.`
-        );
-      }
-
-      // Split it into a whole and fractional part
-      let comps = value.split(".");
-      if (comps.length > 2) {
-        throw new Error("Too many decimal points");
-      }
-
-      let whole = comps[0],
-        fraction = comps[1];
-
-      if (!whole) {
-        whole = "0";
-      }
-      if (!fraction) {
-        fraction = "0";
-      }
-      if (fraction.length > decimals) {
-        throw new Error("Too many decimal places");
-      }
-
-      while (fraction.length < decimals) {
-        fraction += "0";
-      }
-
-      whole = new BN(whole);
-      fraction = new BN(fraction);
-      let wei = whole.mul(base).add(fraction);
-
-      if (negative) {
-        wei = wei.neg();
-      }
-
-      return new BN(wei.toString(10), 10);
-    }
-
     console.log(web3.utils.toWei(amount, "ether"));
 
-    var accounts = await web3.eth.getAccounts();
     const masterChef = new web3.eth.Contract(
       masterChefABI,
       "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
@@ -1881,18 +1071,14 @@ function Farms() {
       console.log(web3.utils.toWei(amount, "gwei") / 10);
       masterChef.methods
         .deposit(pid, web3.utils.toWei(amount, "gwei") / 10)
-        .send({ from: accounts[0] })
+        .send({ from: account })
         .once("receipt", (receipt) => {
           console.log(receipt);
           this.load();
           this.load2();
           this.load8();
           this.load9();
-          // this.load3();
-          // this.load4();
           this.load5();
-          // this.load6();
-          // this.load7();
         })
         .catch((error) => {
           console.log(error);
@@ -1901,18 +1087,14 @@ function Farms() {
       console.log(web3.utils.toWei(amount, "gwei") / 1000);
       masterChef.methods
         .deposit(pid, web3.utils.toWei(amount, "gwei") / 1000)
-        .send({ from: accounts[0] })
+        .send({ from: account })
         .once("receipt", (receipt) => {
           console.log(receipt);
           this.load();
           this.load2();
           this.load8();
           this.load9();
-          // this.load3();
-          // this.load4();
           this.load5();
-          // this.load6();
-          // this.load7();
         })
         .catch((error) => {
           console.log(error);
@@ -1920,7 +1102,7 @@ function Farms() {
     } else {
       masterChef.methods
         .deposit(pid, web3.utils.toWei(amount, "ether"))
-        .send({ from: accounts[0] })
+        .send({ from: account })
         .once("receipt", (receipt) => {
           console.log(receipt);
           this.load();
@@ -1946,7 +1128,6 @@ function Farms() {
     await window.ethereum.send("eth_requestAccounts");
     console.log(web3.utils.toWei(amount, "ether"));
 
-    var accounts = await web3.eth.getAccounts();
     const masterChef = new web3.eth.Contract(
       masterChefABI,
       "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
@@ -1956,18 +1137,14 @@ function Farms() {
       console.log(web3.utils.toWei(amount, "gwei") / 10);
       masterChef.methods
         .withdraw(pid, web3.utils.toWei(amount, "gwei") / 10)
-        .send({ from: accounts[0] })
+        .send({ from: account })
         .once("receipt", (receipt) => {
           console.log(receipt);
           this.load();
           this.load2();
           this.load8();
           this.load9();
-          // this.load3();
-          // this.load4();
           this.load5();
-          // this.load6();
-          // this.load7();
         })
         .catch((error) => {
           console.log(error);
@@ -1976,18 +1153,14 @@ function Farms() {
       console.log(web3.utils.toWei(amount, "gwei") / 1000);
       masterChef.methods
         .withdraw(pid, web3.utils.toWei(amount, "gwei") / 1000)
-        .send({ from: accounts[0] })
+        .send({ from: account })
         .once("receipt", (receipt) => {
           console.log(receipt);
           this.load();
           this.load2();
           this.load8();
           this.load9();
-          // this.load3();
-          // this.load4();
           this.load5();
-          // this.load6();
-          // this.load7();
         })
         .catch((error) => {
           console.log(error);
@@ -1995,18 +1168,14 @@ function Farms() {
     } else {
       masterChef.methods
         .withdraw(pid, web3.utils.toWei(amount, "ether"))
-        .send({ from: accounts[0] })
+        .send({ from: account })
         .once("receipt", (receipt) => {
           console.log(receipt);
           this.load();
           this.load2();
           this.load8();
           this.load9();
-          // this.load3();
-          // this.load4();
           this.load5();
-          // this.load6();
-          // this.load7();
         })
         .catch((error) => {
           console.log(error);
@@ -2020,7 +1189,6 @@ function Farms() {
     const web3 = new Web3(window.ethereum);
     await window.ethereum.send("eth_requestAccounts");
 
-    var accounts = await web3.eth.getAccounts();
     const masterChef = new web3.eth.Contract(
       masterChefABI,
       "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
@@ -2028,18 +1196,14 @@ function Farms() {
 
     masterChef.methods
       .deposit(pid, 0)
-      .send({ from: accounts[0] })
+      .send({ from: account })
       .once("receipt", (receipt) => {
         console.log(receipt);
         this.load();
         this.load2();
         this.load8();
         this.load9();
-        // this.load3();
-        // this.load4();
         this.load5();
-        // this.load6();
-        // this.load7();
       })
       .catch((error) => {
         console.log(error);
@@ -2051,7 +1215,6 @@ function Farms() {
     const web3 = new Web3(window.ethereum);
     await window.ethereum.send("eth_requestAccounts");
 
-    var accounts = await web3.eth.getAccounts();
     const masterChef = new web3.eth.Contract(
       masterChefABI,
       "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
@@ -2059,18 +1222,14 @@ function Farms() {
 
     masterChef.methods
       .harvestAll()
-      .send({ from: accounts[0] })
+      .send({ from: account })
       .once("receipt", (receipt) => {
         console.log(receipt);
         this.load();
         this.load2();
         this.load8();
         this.load9();
-        // this.load3();
-        // this.load4();
         this.load5();
-        // this.load6();
-        // this.load7();
       })
       .catch((error) => {
         console.log(error);
@@ -2099,7 +1258,7 @@ function Farms() {
             }}
           />
         </h2>
-        {/* <button onClick={closeModal}>close</button> */}
+
         <div>
           <p
             style={{
