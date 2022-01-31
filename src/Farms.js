@@ -3875,7 +3875,7 @@ function Farms() {
             </span>
             <br />
             <span style={{ fontSize: "21px", fontWeight: "100" }}>
-              ≈${(HLYBal * HLYPrice).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}
+              ≈${(HLYHLYHLYBal * HLYPrice).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}
             </span>
           </div>
         </div>
