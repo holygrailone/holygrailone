@@ -42,10 +42,17 @@ const customStyles = {
     gridTemplateColumns: "3fr 2fr 2fr 2fr 3fr",
     cursor: "pointer",
   },
+  grailQuestIcon: {
+    width: "30px",
+    height: "30px",
+    marginRight: "10px",
+    marginBottom: "-8px",
+  },
 };
 
 const hlyIcon = (
   <img
+    alt=""
     src="/hly.png"
     style={{
       width: "20px",
@@ -57,6 +64,56 @@ const hlyIcon = (
 );
 
 function Farms() {
+  const grailQuestRow = (
+    onClick,
+    iconSrc,
+    name,
+    apr,
+    liquidity,
+    stakeAmount,
+    earnings
+  ) => (
+    <tr onClick={onClick} style={customStyles.hlyQuestRowGrid}>
+      <td style={{ border: "0", padding: "10px" }}>
+        <div style={{ textAlign: "left" }}>
+          <img alt="" src={iconSrc} style={customStyles.grailQuestIcon} />
+          <span style={{ fontSize: "18px", fontWeight: "100" }}>{name}</span>
+        </div>
+      </td>
+      <td style={{ border: "0", padding: "10px" }}>
+        <div style={{ textAlign: "center" }}>
+          <span style={{ fontSize: "18px", fontWeight: "100" }}>{apr}%</span>
+        </div>
+      </td>
+      <td style={{ border: "0", padding: "10px" }}>
+        <div style={{ textAlign: "center" }}>
+          <span style={{ fontSize: "18px", fontWeight: "100" }}>
+            $
+            {liquidity.toLocaleString("en", {
+              style: "decimal",
+              maximumFractionDigits: 0,
+              minimumFractionDigits: 0,
+            })}
+          </span>
+        </div>
+      </td>
+      <td style={{ border: "0", padding: "10px" }}>
+        <div style={{ textAlign: "center" }}>
+          <span style={{ fontSize: "18px", fontWeight: "100" }}>
+            ${stakeAmount}
+          </span>
+        </div>
+      </td>
+      <td style={{ border: "0", padding: "10px" }}>
+        <div style={customStyles.hlyEarningsGrid}>
+          {hlyIcon}
+          <div style={customStyles.hlyEarningsGap} />
+          <span style={customStyles.hlyEarningsAmount}>{earnings}</span>
+        </div>
+      </td>
+    </tr>
+  );
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -2032,6 +2089,7 @@ function Farms() {
         <h2>
           HLY-USDC{" "}
           <img
+            alt=""
             src="/hlyusdc.png"
             style={{
               width: "30px",
@@ -2163,6 +2221,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/add/0x8D760497554eecC3B9036fb0364156ef2F0D02BC/0x985458E523dB3d53125813eD68c274899e9DfAb4"
               target="_blank"
+              rel="noreferrer"
             >
               Get HLY-USDC 🔗
             </a>
@@ -2179,6 +2238,7 @@ function Farms() {
         <h2>
           HLY-ONE{" "}
           <img
+            alt=""
             src="/hlyone.png"
             style={{
               width: "30px",
@@ -2308,6 +2368,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/add/0x8D760497554eecC3B9036fb0364156ef2F0D02BC/ONE"
               target="_blank"
+              rel="noreferrer"
             >
               Get HLY-ONE 🔗
             </a>
@@ -2324,6 +2385,7 @@ function Farms() {
         <h2>
           1ETH{" "}
           <img
+            alt=""
             src="/eth.png"
             style={{
               width: "30px",
@@ -2453,6 +2515,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/marketplace"
               target="_blank"
+              rel="noreferrer"
             >
               Get 1ETH 🔗
             </a>
@@ -2469,6 +2532,7 @@ function Farms() {
         <h2>
           1BTC{" "}
           <img
+            alt=""
             src="/btc.png"
             style={{
               width: "30px",
@@ -2598,6 +2662,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/marketplace"
               target="_blank"
+              rel="noreferrer"
             >
               Get 1BTC 🔗
             </a>
@@ -2614,6 +2679,7 @@ function Farms() {
         <h2>
           wONE{" "}
           <img
+            alt=""
             src="/wone.png"
             style={{
               width: "30px",
@@ -2743,6 +2809,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/marketplace"
               target="_blank"
+              rel="noreferrer"
             >
               Get wONE 🔗
             </a>
@@ -2759,6 +2826,7 @@ function Farms() {
         <h2>
           1USDC{" "}
           <img
+            alt=""
             src="/usdc.png"
             style={{
               width: "30px",
@@ -2888,6 +2956,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/marketplace"
               target="_blank"
+              rel="noreferrer"
             >
               Get 1USDC 🔗
             </a>
@@ -2904,6 +2973,7 @@ function Farms() {
         <h2>
           JEWEL{" "}
           <img
+            alt=""
             src="/JEWEL.png"
             style={{
               width: "30px",
@@ -3033,6 +3103,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/marketplace"
               target="_blank"
+              rel="noreferrer"
             >
               Get JEWEL 🔗
             </a>
@@ -3050,6 +3121,7 @@ function Farms() {
         <h2>
           HLY-JEWEL{" "}
           <img
+            alt=""
             src="/hlyjewel.png"
             style={{
               width: "30px",
@@ -3179,6 +3251,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/add/0x8D760497554eecC3B9036fb0364156ef2F0D02BC/0x72cb10c6bfa5624dd07ef608027e366bd690048f"
               target="_blank"
+              rel="noreferrer"
             >
               Get HLY-JEWEL 🔗
             </a>
@@ -3196,6 +3269,7 @@ function Farms() {
         <h2>
           HLY{" "}
           <img
+            alt=""
             src="/hly.png"
             style={{
               width: "30px",
@@ -3325,6 +3399,7 @@ function Farms() {
             <a
               href="https://beta.defikingdoms.com/#/marketplace"
               target="_blank"
+              rel="noreferrer"
             >
               Get HLY 🔗
             </a>
@@ -3438,434 +3513,45 @@ function Farms() {
             </tr>
           </thead>
           <tbody>
-            <tr onClick={openModal} style={customStyles.hlyQuestRowGrid}>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
-                  <img
-                    src="/hlyusdc.png"
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      marginRight: "10px",
-                      marginBottom: "-8px",
-                    }}
-                  />
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    HLY-USDC
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    {HLYUSDCAPR}%
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    $
-                    {HLYLiquid.toLocaleString("en", {
-                      style: "decimal",
-                      maximumFractionDigits: 0,
-                      minimumFractionDigits: 0,
-                    })}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    ${HLYUSDCStakedPrice}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={customStyles.hlyEarningsGrid}>
-                  {hlyIcon}
+            {grailQuestRow(
+              openModal,
+              "/hlyusdc.png",
+              "HLY-USDC",
+              HLYUSDCAPR,
+              HLYLiquid,
+              HLYUSDCStakedPrice,
+              HLYUSDCpending
+            )}
 
-                  <div style={customStyles.hlyEarningsGap} />
-                  <span style={customStyles.hlyEarningsAmount}>
-                    {HLYUSDCpending}
-                  </span>
-                </div>
-              </td>
-            </tr>
+            {grailQuestRow(
+              openModalHLYONE,
+              "/hlyone.png",
+              "HLY-ONE",
+              HLYONEAPR,
+              HLYONELiquid,
+              HLYONEStakedPrice,
+              HLYONEpending
+            )}
 
-            <tr onClick={openModalHLYONE} style={customStyles.hlyQuestRowGrid}>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
-                  <img
-                    src="/hlyone.png"
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      marginRight: "10px",
-                      marginBottom: "-8px",
-                    }}
-                  />
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    HLY-ONE
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    {HLYONEAPR}%
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    $
-                    {HLYONELiquid.toLocaleString("en", {
-                      style: "decimal",
-                      maximumFractionDigits: 0,
-                      minimumFractionDigits: 0,
-                    })}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    ${HLYONEStakedPrice}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={customStyles.hlyEarningsGrid}>
-                  {hlyIcon}
-                  <div style={customStyles.hlyEarningsGap} />
-                  <span style={customStyles.hlyEarningsAmount}>
-                    {HLYONEpending}
-                  </span>
-                </div>
-              </td>
-            </tr>
+            {grailQuestRow(
+              openModalHLYHLYJEW,
+              "/hlyjewel.png",
+              "HLY-JEWEL",
+              HLYHLYJEWAPR,
+              HLYHLYJEWLiquid,
+              HLYHLYJEWStakedPrice,
+              HLYHLYJEWpending
+            )}
 
-            <tr
-              onClick={openModalHLYHLYJEW}
-              style={customStyles.hlyQuestRowGrid}
-            >
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
-                  <img
-                    src="/hlyjewel.png"
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      marginRight: "10px",
-                      marginBottom: "-8px",
-                    }}
-                  />
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    HLY-JEWEL
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    {HLYHLYJEWAPR}%
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    $
-                    {HLYHLYJEWLiquid.toLocaleString("en", {
-                      style: "decimal",
-                      maximumFractionDigits: 0,
-                      minimumFractionDigits: 0,
-                    })}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    ${HLYHLYJEWStakedPrice}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={customStyles.hlyEarningsGrid}>
-                  {hlyIcon}
-                  <div style={customStyles.hlyEarningsGap} />
-                  <span style={customStyles.hlyEarningsAmount}>
-                    {HLYHLYJEWpending}
-                  </span>
-                </div>
-              </td>
-            </tr>
-
-            <tr onClick={openModalHLYHLY} style={customStyles.hlyQuestRowGrid}>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
-                  <img
-                    src="/hly.png"
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      marginRight: "10px",
-                      marginBottom: "-8px",
-                    }}
-                  />
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    HLY
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    {HLYHLYHLYAPR}%
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    $
-                    {HLYHLYHLYLiquid.toLocaleString("en", {
-                      style: "decimal",
-                      maximumFractionDigits: 0,
-                      minimumFractionDigits: 0,
-                    })}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    ${HLYHLYHLYStakedPrice}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={customStyles.hlyEarningsGrid}>
-                  {hlyIcon}
-                  <div style={customStyles.hlyEarningsGap} />
-                  <span style={customStyles.hlyEarningsAmount}>
-                    {HLYHLYHLYpending}
-                  </span>
-                </div>
-              </td>
-            </tr>
-
-            {/* <tr onClick={openModalETH} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "left"}}>
-                <img src="/eth.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
-                <span style={{fontSize: "18px", fontWeight: "100"}}>1ETH</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYETHLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYETHStakedPrice}</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYETHpending}</span>
-                <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
-                </div>
-            </td>
-          </tr>
-
-          <tr onClick={openModalBTC} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "left"}}>
-                <img src="/btc.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
-                <span style={{fontSize: "18px", fontWeight: "100"}}>1BTC</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYBTCLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${HLYBTCStakedPrice}</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{HLYBTCpending}</span>
-                <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
-                </div>
-            </td>
-          </tr> */}
-
-            {/* <tr
-              onClick={openModalONE}
-              style={customStyles.hlyQuestRowGrid}
-              className="inactive"
-              title="This quest is closed, please withdraw all funds!"
-            >
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
-                  <img
-                    src="/wone.png"
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      marginRight: "10px",
-                      marginBottom: "-8px",
-                    }}
-                  />
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    wONE
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    Closed
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    $
-                    {HLYWONELiquid.toLocaleString("en", {
-                      style: "decimal",
-                      maximumFractionDigits: 0,
-                      minimumFractionDigits: 0,
-                    })}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    ${HLYWONEStakedPrice}
-                  </span>
-                </div>
-              </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={customStyles.hlyEarningsGrid}>
-                  {hlyIcon}
-                  <div style={customStyles.hlyEarningsGap} />
-                  <span style={customStyles.hlyEarningsAmount}>
-                    {HLYWONEpending}
-                  </span>
-                </div>
-              </td>
-            </tr> */}
-
-            {/* <tr onClick={openModalUSDC} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "left"}}>
-                <img src="/usdc.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
-                <span style={{fontSize: "18px", fontWeight: "100"}}>USDC</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${USDCLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${USDCStakedPrice}</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{USDCpending}</span>
-                <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
-                </div>
-            </td>
-          </tr>
-
-          <tr onClick={openModalJEW} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "left"}}>
-                <img src="/JEWEL.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
-                <span style={{fontSize: "18px", fontWeight: "100"}}>JEWEL</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>Closed</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${JEWELLiquid.toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>${JEWELStakedPrice}</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>{JEWELpending}</span>
-                <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
-                </div>
-            </td>
-          </tr> */}
-
-            {/* <tr>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "left"}}>
-                <img src="/viper.png" style={{width: "30px", height: "30px", marginRight: "10px", marginBottom: "-8px"}} />
-                <span style={{fontSize: "18px", fontWeight: "100"}}>VIPER</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>5,000%</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>$53,000,000</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>$3,000,000</span>
-                </div>
-            </td>
-            <td style={{border: "0", padding: "10px"}}>
-              <div style={{textAlign: "center"}}>
-                <span style={{fontSize: "18px", fontWeight: "100"}}>35.53350</span>
-                <img src="/hly.png" style={{width: "20px", height: "20px", marginLeft: "10px", marginBottom: "-3px"}} />
-                </div>
-            </td>
-          </tr> */}
+            {grailQuestRow(
+              openModalHLYHLY,
+              "/hly.png",
+              "HLY",
+              HLYHLYHLYAPR,
+              HLYHLYHLYLiquid,
+              HLYHLYHLYStakedPrice,
+              HLYHLYHLYpending
+            )}
           </tbody>
         </table>
       </div>
