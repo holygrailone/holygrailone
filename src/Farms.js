@@ -3453,7 +3453,7 @@ function Farms() {
               <td style={{ border: "0", padding: "10px" }}>
                 <div style={{ textAlign: "center" }}>
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
-                    ${HLYUSDCAPR}
+                    {HLYUSDCAPR}%
                   </span>
                 </div>
               </td>
