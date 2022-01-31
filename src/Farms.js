@@ -3710,7 +3710,7 @@ function Farms() {
             </td>
           </tr> */}
 
-            <tr
+            {/* <tr
               onClick={openModalONE}
               style={{ cursor: "pointer" }}
               className="inactive"
@@ -3767,7 +3767,7 @@ function Farms() {
                   </span>
                 </div>
               </td>
-            </tr>
+            </tr> */}
 
             {/* <tr onClick={openModalUSDC} style={{cursor: "pointer"}} className="inactive" title="This quest is closed, please withdraw all funds!">
             <td style={{border: "0", padding: "10px"}}>
@@ -3873,6 +3873,10 @@ function Farms() {
             <span style={{ fontSize: "31px", fontWeight: "100" }}>
               {HLYBal}
             </span>
+            <br />
+            <span style={{ fontSize: "21px", fontWeight: "100" }}>
+              ≈${(HLYBal * HLYPrice).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}
+            </span>
           </div>
         </div>
         <div class="col2 span_1_of_2">
@@ -3892,6 +3896,21 @@ function Farms() {
                 parseFloat(HLYHLYJEWpending) +
                 parseFloat(HLYHLYHLYpending)
               ).toFixed(4)}
+              </span>
+              <br />
+              <span style={{ fontSize: "21px", fontWeight: "100" }}>
+              ≈$
+              {(
+                ((parseFloat(HLYUSDCpending) +
+                parseFloat(HLYONEpending) +
+                parseFloat(HLYBTCpending) +
+                parseFloat(HLYETHpending) +
+                parseFloat(JEWELpending) +
+                parseFloat(USDCpending) +
+                parseFloat(HLYWONEpending) +
+                parseFloat(HLYHLYJEWpending) +
+                parseFloat(HLYHLYHLYpending)
+              ).toFixed(4)) * HLYPrice).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}
             </span>
           </div>
         </div>

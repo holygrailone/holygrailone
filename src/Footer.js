@@ -42,7 +42,7 @@ function Footer() {
       <div style={{marginTop: "155px"}} align="center">HLY Token Contract<br />0x8D760497554eecC3B9036fb0364156ef2F0D02BC<br />(<a href="https://swap.holygrail.one" target="_blank">Swap</a>)</div>
       <div style={{marginTop: "155px"}}><h1 align="center">The Lore</h1><p align="center">You can stake many different Harmony ONE tokens here on HolyGrail.one<br />We aren't telling you to invest, but there are very high APRs.</p><p align="center">HolyGrail is holy fantasy story about the temptation of power.<br />It kicks off with a quest from a loss of magic in the land.</p></div>
     <div style={{marginTop: "155px"}}>
-       <div align="center"><img src="/holygrail.png" border="0" width="200px" align="center" alt="HolyGrail" /></div><br />
+       <div align="center"><img src="/holygrail.png" border="0" width="250px" align="center" alt="HolyGrail" /></div><br />
        <div style={{fontSize: "14px", margin: "0 auto", marginBottom: "25px"}} align="center"><a href="https://swap.holygrail.one" target="_blank">Swap</a> | <a href="https://twitter.com/holygrailone" target="_blank">Twitter</a> | <a href="https://discord.gg/a5EkZtB9Fx" target="_blank">Discord</a> | <a href="https://medium.com/@holygrailone" target="_blank">Medium</a> | <a href="https://t.me/holygrailone" target="_blank">TG</a> | <a href="https://github.com/holygrailone" target="_blank">Github</a> | <a href="https://vote.holygrail.one" target="_blank">Vote</a></div>
        <div style={{fontSize: "14px", margin: "0 auto", marginBottom: "25px"}} align="center"><a onClick={addHLY} style={{cursor: "pointer"}}>Add HLY to Metamask</a></div>
     </div>
