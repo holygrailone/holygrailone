@@ -26,7 +26,7 @@ const customStyles = {
     borderRadius: "13px",
   },
   hlyEarningsGrid: {
-    marginLeft: "27%",
+    marginLeft: "30%",
   },
   hlyEarningsGap: {
     width: 15,
@@ -36,6 +36,11 @@ const customStyles = {
     fontSize: "18px",
     fontWeight: "100",
     textAlign: "start",
+  },
+  hlyQuestRowGrid: {
+    display: "grid",
+    gridTemplateColumns: "3fr 2fr 2fr 2fr 3fr",
+    cursor: "pointer",
   },
 };
 
@@ -3422,7 +3427,7 @@ function Farms() {
           }}
         >
           <thead>
-            <tr>
+            <tr style={customStyles.hlyQuestRowGrid}>
               <th style={{ border: "0", padding: "10px", textAlign: "left" }}>
                 Name
               </th>
@@ -3433,7 +3438,7 @@ function Farms() {
             </tr>
           </thead>
           <tbody>
-            <tr onClick={openModal} style={{ cursor: "pointer" }}>
+            <tr onClick={openModal} style={customStyles.hlyQuestRowGrid}>
               <td style={{ border: "0", padding: "10px" }}>
                 <div style={{ textAlign: "left" }}>
                   <img
@@ -3488,7 +3493,7 @@ function Farms() {
               </td>
             </tr>
 
-            <tr onClick={openModalHLYONE} style={{ cursor: "pointer" }}>
+            <tr onClick={openModalHLYONE} style={customStyles.hlyQuestRowGrid}>
               <td style={{ border: "0", padding: "10px" }}>
                 <div style={{ textAlign: "left" }}>
                   <img
@@ -3542,7 +3547,10 @@ function Farms() {
               </td>
             </tr>
 
-            <tr onClick={openModalHLYHLYJEW} style={{ cursor: "pointer" }}>
+            <tr
+              onClick={openModalHLYHLYJEW}
+              style={customStyles.hlyQuestRowGrid}
+            >
               <td style={{ border: "0", padding: "10px" }}>
                 <div style={{ textAlign: "left" }}>
                   <img
@@ -3596,7 +3604,7 @@ function Farms() {
               </td>
             </tr>
 
-            <tr onClick={openModalHLYHLY} style={{ cursor: "pointer" }}>
+            <tr onClick={openModalHLYHLY} style={customStyles.hlyQuestRowGrid}>
               <td style={{ border: "0", padding: "10px" }}>
                 <div style={{ textAlign: "left" }}>
                   <img
@@ -3712,7 +3720,7 @@ function Farms() {
 
             {/* <tr
               onClick={openModalONE}
-              style={{ cursor: "pointer" }}
+              style={customStyles.hlyQuestRowGrid}
               className="inactive"
               title="This quest is closed, please withdraw all funds!"
             >
@@ -3875,7 +3883,12 @@ function Farms() {
             </span>
             <br />
             <span style={{ fontSize: "21px", fontWeight: "100" }}>
-              ≈${(HLYHLYHLYBal * HLYPrice).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}
+              ≈$
+              {(HLYHLYHLYBal * HLYPrice).toLocaleString("en", {
+                style: "decimal",
+                maximumFractionDigits: 0,
+                minimumFractionDigits: 0,
+              })}
             </span>
           </div>
         </div>
@@ -3896,21 +3909,27 @@ function Farms() {
                 parseFloat(HLYHLYJEWpending) +
                 parseFloat(HLYHLYHLYpending)
               ).toFixed(4)}
-              </span>
-              <br />
-              <span style={{ fontSize: "21px", fontWeight: "100" }}>
+            </span>
+            <br />
+            <span style={{ fontSize: "21px", fontWeight: "100" }}>
               ≈$
               {(
-                ((parseFloat(HLYUSDCpending) +
-                parseFloat(HLYONEpending) +
-                parseFloat(HLYBTCpending) +
-                parseFloat(HLYETHpending) +
-                parseFloat(JEWELpending) +
-                parseFloat(USDCpending) +
-                parseFloat(HLYWONEpending) +
-                parseFloat(HLYHLYJEWpending) +
-                parseFloat(HLYHLYHLYpending)
-              ).toFixed(4)) * HLYPrice).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}
+                (
+                  parseFloat(HLYUSDCpending) +
+                  parseFloat(HLYONEpending) +
+                  parseFloat(HLYBTCpending) +
+                  parseFloat(HLYETHpending) +
+                  parseFloat(JEWELpending) +
+                  parseFloat(USDCpending) +
+                  parseFloat(HLYWONEpending) +
+                  parseFloat(HLYHLYJEWpending) +
+                  parseFloat(HLYHLYHLYpending)
+                ).toFixed(4) * HLYPrice
+              ).toLocaleString("en", {
+                style: "decimal",
+                maximumFractionDigits: 0,
+                minimumFractionDigits: 0,
+              })}
             </span>
           </div>
         </div>
