@@ -150,8 +150,6 @@ function Farms() {
     unstake.setAttribute("value", avail);
   }
 
-  const [onebalance, setOneBalance] = useState();
-
   const [account, setAccount] = useState();
 
   const [HLYmcap, setHLYMCap] = useState(0);
@@ -169,7 +167,6 @@ function Farms() {
   const [HLYUSDCpending, setHLYUSDCpending] = useState(0);
 
   // HLY-ONE LP
-  const [HLYONEPrice, setHLYONEPrice] = useState(0);
   const [HLYONEBal, setHLYONEBal] = useState(0);
   const [HLYONELiquid, setHLYONELiquid] = useState(0);
   const [HLYONEAPR, setHLYONEAPR] = useState(0);
@@ -179,57 +176,41 @@ function Farms() {
   const [HLYONEpending, setHLYONEpending] = useState(0);
 
   // 1ETH
-  const [HLYETHPrice, setHLYETHPrice] = useState(0);
   const [HLYETHBal, setHLYETHBal] = useState(0);
   const [HLYETHLiquid, setHLYETHLiquid] = useState(0);
-  const [HLYETHAPR, setHLYETHAPR] = useState(0);
 
   const [HLYETHStaked, setHLYETHStaked] = useState(0);
-  const [HLYETHStakedPrice, setHLYETHStakedPrice] = useState(0);
   const [HLYETHpending, setHLYETHpending] = useState(0);
 
   // 1BTC
-  const [HLYBTCPrice, setHLYBTCPrice] = useState(0);
   const [HLYBTCBal, setHLYBTCBal] = useState(0);
   const [HLYBTCLiquid, setHLYBTCLiquid] = useState(0);
-  const [HLYBTCAPR, setHLYBTCAPR] = useState(0);
 
   const [HLYBTCStaked, setHLYBTCStaked] = useState(0);
-  const [HLYBTCStakedPrice, setHLYBTCStakedPrice] = useState(0);
   const [HLYBTCpending, setHLYBTCpending] = useState(0);
 
   // wONE
-  const [HLYWONEPrice, setHLYWONEPrice] = useState(0);
   const [HLYWONEBal, setHLYWONEBal] = useState(0);
   const [HLYWONELiquid, setHLYWONELiquid] = useState(0);
-  const [HLYWONEAPR, setHLYWONEAPR] = useState(0);
 
   const [HLYWONEStaked, setHLYWONEStaked] = useState(0);
-  const [HLYWONEStakedPrice, setHLYWONEStakedPrice] = useState(0);
   const [HLYWONEpending, setHLYWONEpending] = useState(0);
 
   // USDC
-  const [USDCPrice, setUSDCPrice] = useState(0);
   const [USDCBal, setUSDCBal] = useState(0);
   const [USDCLiquid, setUSDCLiquid] = useState(0);
-  const [USDCAPR, setUSDCAPR] = useState(0);
 
   const [USDCStaked, setUSDCStaked] = useState(0);
-  const [USDCStakedPrice, setUSDCStakedPrice] = useState(0);
   const [USDCpending, setUSDCpending] = useState(0);
 
   // JEWEL
-  const [JEWELPrice, setJEWELPrice] = useState(0);
   const [JEWELBal, setJEWELBal] = useState(0);
   const [JEWELLiquid, setJEWELLiquid] = useState(0);
-  const [JEWELAPR, setJEWELAPR] = useState(0);
 
   const [JEWELStaked, setJEWELStaked] = useState(0);
-  const [JEWELStakedPrice, setJEWELStakedPrice] = useState(0);
   const [JEWELpending, setJEWELpending] = useState(0);
 
   // HLY-JEWEL LP
-  const [HLYHLYJEWPrice, setHLYHLYJEWPrice] = useState(0);
   const [HLYHLYJEWBal, setHLYHLYJEWBal] = useState(0);
   const [HLYHLYJEWLiquid, setHLYHLYJEWLiquid] = useState(0);
   const [HLYHLYJEWAPR, setHLYHLYJEWAPR] = useState(0);
@@ -238,8 +219,7 @@ function Farms() {
   const [HLYHLYJEWStakedPrice, setHLYHLYJEWStakedPrice] = useState(0);
   const [HLYHLYJEWpending, setHLYHLYJEWpending] = useState(0);
 
-  // HLY Single STake
-  const [HLYHLYHLYPrice, setHLYHLYHLYPrice] = useState(0);
+  // HLY Single Stake
   const [HLYHLYHLYBal, setHLYHLYHLYBal] = useState(0);
   const [HLYHLYHLYLiquid, setHLYHLYHLYLiquid] = useState(0);
   const [HLYHLYHLYAPR, setHLYHLYHLYAPR] = useState(0);
@@ -262,12 +242,11 @@ function Farms() {
 
   useEffect(() => {
     const web3 = new Web3(window.ethereum);
-    var accounts;
 
     async function listenMMAccount() {
       window.ethereum.on("accountsChanged", async function () {
         // Time to reload your interface with account!
-        accounts = await web3.eth.getAccounts();
+        const accounts = await web3.eth.getAccounts();
         setAccount(accounts);
         console.log(accounts);
         // window.location.reload();
@@ -281,16 +260,6 @@ function Farms() {
     // HLY-ONE LP 0x3e478ed607f79a50f286a5a6ce52a049897291b2
     const BLOCKS_PER_YEAR = 15768000 * 1e18;
 
-    async function initialiseAccounts() {
-      await window.ethereum.send("eth_requestAccounts");
-    }
-
-    initialiseAccounts();
-
-    const account = accounts[0];
-    var modacct = account.slice(0, 15) + "...";
-    document.getElementById("account").innerHTML = modacct;
-
     const priceFeed = new web3h.eth.Contract(
       priceOracleABI,
       "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
@@ -298,6 +267,18 @@ function Farms() {
 
     async function load() {
       try {
+        // TODO
+        // find out way to call these few lines (up to *HERE*)
+        // externally so code is not repeated
+        // need a way to initialise accounts before calling these async load()s
+        const accounts = await web3.eth.getAccounts();
+        const account = accounts[0];
+        var modacct = account.slice(0, 15) + "...";
+        document.getElementById("account").innerHTML = modacct;
+
+        await window.ethereum.send("eth_requestAccounts");
+        // ------- *HERE* -------
+
         // HLY-USDC LP
         const lptoken = new web3h.eth.Contract(
           lpABI,
@@ -433,6 +414,13 @@ function Farms() {
 
     async function load2() {
       try {
+        const accounts = await web3.eth.getAccounts();
+        const account = accounts[0];
+        var modacct = account.slice(0, 15) + "...";
+        document.getElementById("account").innerHTML = modacct;
+
+        await window.ethereum.send("eth_requestAccounts");
+
         // HLY-ONE LP
         const lptokenONE = new web3h.eth.Contract(
           lpABI,
@@ -521,7 +509,6 @@ function Farms() {
 
         var HLYUSDCpendingweiONE = HLYUSDCpendingONE / 1e18;
 
-        setHLYONEPrice(hlyusdclpweiONE);
         setHLYONEBal(hlyusdcformatONE);
         setHLYONELiquid(hlyliquidONE);
         setHLYONEAPR(
@@ -548,6 +535,13 @@ function Farms() {
 
     async function load5() {
       try {
+        const accounts = await web3.eth.getAccounts();
+        const account = accounts[0];
+        var modacct = account.slice(0, 15) + "...";
+        document.getElementById("account").innerHTML = modacct;
+
+        await window.ethereum.send("eth_requestAccounts");
+
         // WONE Pool
         const lptokenWONE = new web3h.eth.Contract(
           erc20ABI,
@@ -614,31 +608,14 @@ function Farms() {
           "ether"
         );
 
-        var HLYUSDCstakedusdcWONE = HLYUSDCstakedweiWONE * WONEprice;
-
         var HLYUSDCpendingWONE = await masterChefWONE.methods
           .pendingHLY(4, account)
           .call();
 
         var HLYUSDCpendingweiWONE = HLYUSDCpendingWONE / 1e18;
 
-        setHLYWONEPrice(WONEprice);
         setHLYWONEBal(hlyusdcformatWONE);
         setHLYWONELiquid(hlyliquidWONE);
-        setHLYWONEAPR(
-          hlyRewardPerYearWONE.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
-        setHLYWONEStakedPrice(
-          HLYUSDCstakedusdcWONE.toLocaleString("en", {
-            style: "decimal",
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })
-        );
         setHLYWONEStaked(HLYUSDCstakedweiWONE);
 
         setHLYWONEpending(HLYUSDCpendingweiWONE.toFixed(4));
@@ -649,6 +626,13 @@ function Farms() {
 
     async function load8() {
       try {
+        const accounts = await web3.eth.getAccounts();
+        const account = accounts[0];
+        var modacct = account.slice(0, 15) + "...";
+        document.getElementById("account").innerHTML = modacct;
+
+        await window.ethereum.send("eth_requestAccounts");
+
         // HLY-JEWEL LP
         const lptokenHLYJEW = new web3h.eth.Contract(
           lpABI,
@@ -698,7 +682,7 @@ function Farms() {
           .totalSupply()
           .call();
 
-        //get total lp value
+        // get total lp value
 
         // console.log(hlyusdcliquid/1e18 * HLYPrices * 2)
 
@@ -749,7 +733,6 @@ function Farms() {
 
         var HLYUSDCpendingweiHLYJEW = HLYUSDCpendingHLYJEW / 1e18;
 
-        setHLYHLYJEWPrice(hlyusdclpweiHLYJEW);
         setHLYHLYJEWBal(hlyusdcformatHLYJEW);
         setHLYHLYJEWLiquid(hlyliquidHLYJEW);
         setHLYHLYJEWAPR(
@@ -776,6 +759,13 @@ function Farms() {
 
     async function load9() {
       try {
+        const accounts = await web3.eth.getAccounts();
+        const account = accounts[0];
+        var modacct = account.slice(0, 15) + "...";
+        document.getElementById("account").innerHTML = modacct;
+
+        await window.ethereum.send("eth_requestAccounts");
+
         // HLY Pool
         const lptokenHLYHLY = new web3h.eth.Contract(
           erc20ABI,
@@ -854,7 +844,6 @@ function Farms() {
 
         var HLYUSDCpendingweiHLYHLY = HLYUSDCpendingHLYHLY / 1e18;
 
-        setHLYHLYHLYPrice(HLYPrices);
         setHLYHLYHLYBal(hlyusdcformatHLYHLY);
         setHLYHLYHLYLiquid(hlyliquidHLYHLY);
         setHLYHLYHLYAPR(
@@ -1026,7 +1015,15 @@ function Farms() {
         interval5,
         interval6
       );
-  }, [erc20ABI, lpABI, masterChefABI, priceOracleABI]);
+  }, [account, web3h.eth.Contract]);
+
+  const loadAll = () => {
+    this.load();
+    this.load2();
+    this.load8();
+    this.load9();
+    this.load5();
+  };
 
   async function approve(e, token) {
     e.preventDefault();
@@ -1043,16 +1040,25 @@ function Farms() {
       .send({ from: account })
       .once("receipt", (receipt) => {
         console.log(receipt);
-        this.load();
-        this.load2();
-        this.load8();
-        this.load9();
-        this.load5();
+        loadAll();
       })
       .catch((error) => {
         console.log(error);
       });
   }
+
+  const depositAmount = (web3, amount, pid) => {
+    let depositAmt = 0;
+    if (pid === 3) {
+      depositAmt = web3.utils.toWei(amount, "gwei") / 10;
+    } else if (pid === 5) {
+      depositAmt = web3.utils.toWei(amount, "gwei") / 1000;
+    } else {
+      depositAmt = web3.utils.toWei(amount, "ether");
+    }
+
+    return depositAmt;
+  };
 
   async function stake(e, pid, amount) {
     e.preventDefault();
@@ -1067,58 +1073,16 @@ function Farms() {
       "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
     );
 
-    if (pid === 3) {
-      console.log(web3.utils.toWei(amount, "gwei") / 10);
-      masterChef.methods
-        .deposit(pid, web3.utils.toWei(amount, "gwei") / 10)
-        .send({ from: account })
-        .once("receipt", (receipt) => {
-          console.log(receipt);
-          this.load();
-          this.load2();
-          this.load8();
-          this.load9();
-          this.load5();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else if (pid === 5) {
-      console.log(web3.utils.toWei(amount, "gwei") / 1000);
-      masterChef.methods
-        .deposit(pid, web3.utils.toWei(amount, "gwei") / 1000)
-        .send({ from: account })
-        .once("receipt", (receipt) => {
-          console.log(receipt);
-          this.load();
-          this.load2();
-          this.load8();
-          this.load9();
-          this.load5();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      masterChef.methods
-        .deposit(pid, web3.utils.toWei(amount, "ether"))
-        .send({ from: account })
-        .once("receipt", (receipt) => {
-          console.log(receipt);
-          this.load();
-          this.load2();
-          this.load8();
-          this.load9();
-          // this.load3();
-          // this.load4();
-          this.load5();
-          // this.load6();
-          // this.load7();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    masterChef.methods
+      .deposit(pid, depositAmount(web3, amount, pid))
+      .send({ from: account })
+      .once("receipt", (receipt) => {
+        console.log(receipt);
+        loadAll();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async function withdraw(e, pid, amount) {
@@ -1133,54 +1097,16 @@ function Farms() {
       "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
     );
 
-    if (pid === 3) {
-      console.log(web3.utils.toWei(amount, "gwei") / 10);
-      masterChef.methods
-        .withdraw(pid, web3.utils.toWei(amount, "gwei") / 10)
-        .send({ from: account })
-        .once("receipt", (receipt) => {
-          console.log(receipt);
-          this.load();
-          this.load2();
-          this.load8();
-          this.load9();
-          this.load5();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else if (pid === 5) {
-      console.log(web3.utils.toWei(amount, "gwei") / 1000);
-      masterChef.methods
-        .withdraw(pid, web3.utils.toWei(amount, "gwei") / 1000)
-        .send({ from: account })
-        .once("receipt", (receipt) => {
-          console.log(receipt);
-          this.load();
-          this.load2();
-          this.load8();
-          this.load9();
-          this.load5();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      masterChef.methods
-        .withdraw(pid, web3.utils.toWei(amount, "ether"))
-        .send({ from: account })
-        .once("receipt", (receipt) => {
-          console.log(receipt);
-          this.load();
-          this.load2();
-          this.load8();
-          this.load9();
-          this.load5();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    masterChef.methods
+      .deposit(pid, depositAmount(web3, amount, pid))
+      .send({ from: account })
+      .once("receipt", (receipt) => {
+        console.log(receipt);
+        loadAll();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async function claim(e, pid) {
@@ -1199,11 +1125,7 @@ function Farms() {
       .send({ from: account })
       .once("receipt", (receipt) => {
         console.log(receipt);
-        this.load();
-        this.load2();
-        this.load8();
-        this.load9();
-        this.load5();
+        loadAll();
       })
       .catch((error) => {
         console.log(error);
@@ -1225,11 +1147,7 @@ function Farms() {
       .send({ from: account })
       .once("receipt", (receipt) => {
         console.log(receipt);
-        this.load();
-        this.load2();
-        this.load8();
-        this.load9();
-        this.load5();
+        loadAll();
       })
       .catch((error) => {
         console.log(error);
@@ -1554,7 +1472,7 @@ function Farms() {
             }}
           />
         </h2>
-        {/* <button onClick={closeModal}>close</button> */}
+
         <div>
           <p
             style={{
