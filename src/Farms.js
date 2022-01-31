@@ -1687,7 +1687,7 @@ function Farms() {
     load9();
     // load3();
     // load4();
-    load5();
+    // load5();
     // load6();
     // load7();
     allowance();
@@ -1696,7 +1696,7 @@ function Farms() {
     const interval3 = setInterval(load2, 10000);
     const interval4 = setInterval(load8, 10000);
     const interval5 = setInterval(load9, 10000);
-    const interval6 = setInterval(load5, 10000);
+    // const interval6 = setInterval(load5, 10000);
     const interval2 = setInterval(allowance, 25000);
     return () =>
       clearInterval(
@@ -1704,8 +1704,8 @@ function Farms() {
         interval2,
         interval3,
         interval4,
-        interval5,
-        interval6
+        interval5
+        // interval6
       );
   }, [erc20ABI, lpABI, masterChefABI, priceOracleABI]);
 
