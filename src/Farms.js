@@ -70,50 +70,36 @@ function Farms() {
     </tr>
   );
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  function openModal() {
-    setIsOpen(true);
+  const [modalIsOpenHLYUSDC, setIsOpenHLYUSDC] = React.useState(false);
+  function openModalHLYUSDC() {
+    setIsOpenHLYUSDC(true);
   }
-
-  function closeModal() {
-    setIsOpen(false);
+  function closeModalHLYUSDC() {
+    setIsOpenHLYUSDC(false);
   }
 
   const [modalIsOpenHLYONE, setIsOpenHLYONE] = React.useState(false);
-
   function openModalHLYONE() {
     setIsOpenHLYONE(true);
   }
-
   function closeModalHLYONE() {
     setIsOpenHLYONE(false);
   }
 
   const [modalIsOpenHLYHLYJEW, setIsOpenHLYHLYJEW] = React.useState(false);
-
   function openModalHLYHLYJEW() {
     setIsOpenHLYHLYJEW(true);
   }
-
   function closeModalHLYHLYJEW() {
     setIsOpenHLYHLYJEW(false);
   }
 
   const [modalIsOpenHLYHLY, setIsOpenHLYHLY] = React.useState(false);
-
   function openModalHLYHLY() {
     setIsOpenHLYHLY(true);
   }
-
   function closeModalHLYHLY() {
     setIsOpenHLYHLY(false);
-  }
-
-  const [modalIsOpenONE, setIsOpenONE] = React.useState(false);
-
-  function closeModalONE() {
-    setIsOpenONE(false);
   }
 
   function maxAmount(e) {
@@ -156,13 +142,6 @@ function Farms() {
   const [HLYONEStaked, setHLYONEStaked] = useState(undefined);
   const [HLYONEStakedPrice, setHLYONEStakedPrice] = useState(undefined);
   const [HLYONEpending, setHLYONEpending] = useState(undefined);
-
-  // wONE
-  const [HLYWONEBal, setHLYWONEBal] = useState(undefined);
-  const [HLYWONELiquid, setHLYWONELiquid] = useState(undefined);
-
-  const [HLYWONEStaked, setHLYWONEStaked] = useState(undefined);
-  const [HLYWONEpending, setHLYWONEpending] = useState(undefined);
 
   // HLY-JEWEL LP
   const [HLYHLYJEWBal, setHLYHLYJEWBal] = useState(undefined);
@@ -940,8 +919,8 @@ function Farms() {
   return (
     <div>
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        isOpen={modalIsOpenHLYUSDC}
+        onRequestClose={closeModalHLYUSDC}
         style={customStyles}
         overlayClassName="myoverlay"
         contentLabel="Stake"
@@ -1235,152 +1214,6 @@ function Farms() {
               rel="noreferrer"
             >
               Get HLY-ONE 🔗
-            </a>
-          </div>
-        </p>
-      </Modal>
-
-      <Modal
-        isOpen={modalIsOpenONE}
-        onRequestClose={closeModalONE}
-        style={customStyles}
-        overlayClassName="myoverlay"
-        contentLabel="Stake"
-      >
-        <h2>
-          wONE{" "}
-          <img
-            alt=""
-            src="/wone.png"
-            style={{
-              width: "30px",
-              height: "30px",
-              marginRight: "10px",
-              marginBottom: "-8px",
-            }}
-          />
-        </h2>
-
-        <div>
-          <p
-            style={{
-              backgroundColor: "#111",
-              padding: "15px",
-              borderRadius: "13px",
-            }}
-          >
-            Available Balance:{" "}
-            <span id="available">{HLYWONEBal || loadingMsg}</span>
-            <br />
-            Staking:{" "}
-            <span id="availablestaked">{HLYWONEStaked || loadingMsg}</span>
-            <br />
-            Earned: {HLYWONEpending || loadingMsg}
-          </p>
-        </div>
-
-        <Tabs>
-          <TabList>
-            <Tab>Stake</Tab>
-            <Tab>Unstake</Tab>
-          </TabList>
-
-          <TabPanel>
-            <form
-              onSubmit={(event) =>
-                stake(event, 4, document.getElementById("stake").value)
-              }
-            >
-              <input
-                id="stake"
-                type="number"
-                placeholder="Enter Deposit Amount"
-                step="any"
-              />{" "}
-              <button
-                style={{
-                  display: "inline-block",
-                  backgroundColor: "green",
-                  border: "0",
-                  color: "#FFF",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  cursor: "pointer",
-                }}
-                onClick={maxAmount}
-              >
-                Max
-              </button>
-              <br />
-              {hlywoneallowed ? (
-                <>
-                  <button type="submit" className="hlybtn">
-                    Stake
-                  </button>
-                  <br />
-                </>
-              ) : (
-                <>
-                  <button
-                    className="hlybtn"
-                    onClick={(e) =>
-                      approve(e, "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a")
-                    }
-                  >
-                    Approve
-                  </button>
-                  <br />
-                </>
-              )}
-              <button className="hlybtn" onClick={(e) => claim(e, 4)}>
-                Claim Earnings
-              </button>
-            </form>
-          </TabPanel>
-          <TabPanel>
-            <form
-              onSubmit={(event) =>
-                withdraw(event, 4, document.getElementById("unstake").value)
-              }
-            >
-              <input
-                id="unstake"
-                type="number"
-                placeholder="Enter Withdrawal Amount"
-                step="any"
-              />
-              <button
-                style={{
-                  display: "inline-block",
-                  backgroundColor: "green",
-                  border: "0",
-                  color: "#FFF",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  cursor: "pointer",
-                }}
-                onClick={unmaxAmount}
-              >
-                Max
-              </button>
-              <br />
-
-              <button type="submit" className="hlybtn">
-                Unstake
-              </button>
-              <br />
-
-              <button className="hlybtn" onClick={(e) => claim(e, 4)}>
-                Claim Earnings
-              </button>
-            </form>
-          </TabPanel>
-        </Tabs>
-
-        <p>
-          <div>
-            <a href={dfkMarketplace} target="_blank" rel="noreferrer">
-              Get wONE 🔗
             </a>
           </div>
         </p>
@@ -1701,13 +1534,11 @@ function Farms() {
             >
               {HLYLiquid !== undefined &&
               HLYONELiquid !== undefined &&
-              HLYWONELiquid !== undefined &&
               HLYHLYJEWLiquid !== undefined &&
               HLYHLYHLYLiquid !== undefined
                 ? `$${(
                     parseInt(HLYLiquid) +
                     parseInt(HLYONELiquid) +
-                    parseInt(HLYWONELiquid) +
                     parseInt(HLYHLYJEWLiquid) +
                     parseInt(HLYHLYHLYLiquid)
                   ).toLocaleString("en", {
@@ -1790,7 +1621,7 @@ function Farms() {
           </thead>
           <tbody>
             {grailQuestRow(
-              openModal,
+              openModalHLYUSDC,
               "/hlyusdc.png",
               "HLY-USDC",
               HLYUSDCAPR,
@@ -1863,13 +1694,11 @@ function Farms() {
             <span style={{ fontSize: "31px", fontWeight: "100" }}>
               {HLYUSDCpending !== undefined &&
               HLYONEpending !== undefined &&
-              HLYWONEpending !== undefined &&
               HLYHLYJEWpending !== undefined &&
               HLYHLYHLYpending !== undefined
                 ? `≈${(
                     parseFloat(HLYUSDCpending) +
                     parseFloat(HLYONEpending) +
-                    parseFloat(HLYWONEpending) +
                     parseFloat(HLYHLYJEWpending) +
                     parseFloat(HLYHLYHLYpending)
                   ).toFixed(4)}`
@@ -1879,14 +1708,12 @@ function Farms() {
             <span style={{ fontSize: "21px", fontWeight: "100" }}>
               {HLYUSDCpending !== undefined &&
               HLYONEpending !== undefined &&
-              HLYWONEpending !== undefined &&
               HLYHLYJEWpending !== undefined &&
               HLYHLYHLYpending !== undefined
                 ? `≈$${(
                     (
                       parseFloat(HLYUSDCpending) +
                       parseFloat(HLYONEpending) +
-                      parseFloat(HLYWONEpending) +
                       parseFloat(HLYHLYJEWpending) +
                       parseFloat(HLYHLYHLYpending)
                     ).toFixed(4) * HLYPrice
