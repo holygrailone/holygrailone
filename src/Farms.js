@@ -165,7 +165,6 @@ function Farms() {
 
   const [hlyusdcallowed, setHLYUSDCAllowed] = useState(false);
   const [hlyoneallowed, setHLYOneAllowed] = useState(false);
-  const [hlywoneallowed, setHLYWoneAllowed] = useState(false);
   const [hlyhlyjewallowed, setHLYHLYJEWAllowed] = useState(false);
   const [hlyhlyhlyallowed, setHLYHLYHLYAllowed] = useState(false);
 
@@ -720,19 +719,6 @@ function Farms() {
 
         if (allowedone > 0) {
           setHLYOneAllowed(true);
-        }
-
-        const lpt5 = new web3h.eth.Contract(
-          lpABI,
-          "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a"
-        );
-
-        const allowedwone = await lpt5.methods
-          .allowance(account, "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
-          .call();
-
-        if (allowedwone > 0) {
-          setHLYWoneAllowed(true);
         }
 
         const lpt8 = new web3h.eth.Contract(
