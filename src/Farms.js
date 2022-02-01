@@ -215,12 +215,12 @@ function Farms() {
       "0x9bA42cbB93Ff32A877cd9a62eb167Bf92e425668"
     );
 
-    async function load() {
+    async function loadHLYUSDC() {
       try {
         // TODO
         // find out way to call these few lines (up to *HERE*)
         // externally so code is not repeated
-        // need a way to initialise accounts before calling these async load()s
+        // need a way to initialise accounts before calling these async loadHLYUSDC()s
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
         var modacct = account.slice(0, 15) + "...";
@@ -362,7 +362,7 @@ function Farms() {
       }
     }
 
-    async function load2() {
+    async function loadHLYONE() {
       try {
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
@@ -483,70 +483,7 @@ function Farms() {
       }
     }
 
-    async function load5() {
-      try {
-        const accounts = await web3.eth.getAccounts();
-        const account = accounts[0];
-        var modacct = account.slice(0, 15) + "...";
-        document.getElementById("account").innerHTML = modacct;
-
-        await window.ethereum.send("eth_requestAccounts");
-
-        // WONE Pool
-        const lptokenWONE = new web3h.eth.Contract(
-          erc20ABI,
-          "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a"
-        );
-
-        const masterChefWONE = new web3h.eth.Contract(
-          masterChefABI,
-          "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
-        );
-
-        const getonepriceWONE = await priceFeed.methods
-          .getLatestONEPrice()
-          .call();
-
-        var WONEprice = getonepriceWONE / 1e8;
-
-        var hlyusdcbalWONE = await lptokenWONE.methods
-          .balanceOf(account)
-          .call();
-
-        var hlyusdcformatWONE = web3.utils.fromWei(hlyusdcbalWONE, "ether");
-
-        var hlyusdcliquidWONE = await lptokenWONE.methods
-          .balanceOf("0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78")
-          .call();
-
-        var hlyliquidWONE = (hlyusdcliquidWONE / 1e18) * WONEprice;
-
-        var HLYUSDCstakedWONE = await masterChefWONE.methods
-          .userInfo(4, account)
-          .call();
-
-        var HLYUSDCstakedweiWONE = web3.utils.fromWei(
-          HLYUSDCstakedWONE.amount,
-          "ether"
-        );
-
-        var HLYUSDCpendingWONE = await masterChefWONE.methods
-          .pendingHLY(4, account)
-          .call();
-
-        var HLYUSDCpendingweiWONE = HLYUSDCpendingWONE / 1e18;
-
-        setHLYWONEBal(hlyusdcformatWONE);
-        setHLYWONELiquid(hlyliquidWONE);
-        setHLYWONEStaked(HLYUSDCstakedweiWONE);
-
-        setHLYWONEpending(HLYUSDCpendingweiWONE.toFixed(4));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    async function load8() {
+    async function loadHLYJEWEL() {
       try {
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
@@ -671,7 +608,7 @@ function Farms() {
       }
     }
 
-    async function load9() {
+    async function loadHLYPool() {
       try {
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
@@ -849,36 +786,26 @@ function Farms() {
       }
     }
 
-    load();
-    load2();
-    load8();
-    load9();
-    load5();
+    loadHLYUSDC();
+    loadHLYONE();
+    loadHLYJEWEL();
+    loadHLYPool();
     allowance();
 
-    const interval = setInterval(load, 10000);
-    const interval3 = setInterval(load2, 10000);
-    const interval4 = setInterval(load8, 10000);
-    const interval5 = setInterval(load9, 10000);
-    const interval6 = setInterval(load5, 10000);
+    const interval = setInterval(loadHLYUSDC, 10000);
+    const interval3 = setInterval(loadHLYONE, 10000);
+    const interval4 = setInterval(loadHLYJEWEL, 10000);
+    const interval5 = setInterval(loadHLYPool, 10000);
     const interval2 = setInterval(allowance, 25000);
     return () =>
-      clearInterval(
-        interval,
-        interval2,
-        interval3,
-        interval4,
-        interval5,
-        interval6
-      );
+      clearInterval(interval, interval2, interval3, interval4, interval5);
   }, [account, web3h.eth.Contract]);
 
   const loadAll = () => {
-    this.load();
-    this.load2();
-    this.load8();
-    this.load9();
-    this.load5();
+    this.loadHLYUSDC();
+    this.loadHLYONE();
+    this.loadHLYJEWEL();
+    this.loadHLYPool();
   };
 
   async function approve(e, token) {
@@ -1918,7 +1845,7 @@ function Farms() {
             </span>
             <br />
             <span style={{ fontSize: "21px", fontWeight: "100" }}>
-              {HLYBal
+              {HLYBal !== undefined
                 ? `≈$${(HLYHLYHLYBal * HLYPrice).toLocaleString("en", {
                     style: "decimal",
                     maximumFractionDigits: 0,
