@@ -168,9 +168,9 @@ function Farms() {
   const [hlyhlyjewallowed, setHLYHLYJEWAllowed] = useState(false);
   const [hlyhlyhlyallowed, setHLYHLYHLYAllowed] = useState(false);
 
-  useEffect(() => {
-    const web3 = new Web3(window.ethereum);
+  const web3 = new Web3(window.ethereum);
 
+  useEffect(() => {
     async function listenMMAccount() {
       window.ethereum.on("accountsChanged", async function () {
         // Time to reload your interface with account!
@@ -693,6 +693,11 @@ function Farms() {
 
     async function allowance() {
       try {
+        const accounts = await web3.eth.getAccounts();
+        const account = accounts[0];
+        var modacct = account.slice(0, 15) + "...";
+        document.getElementById("account").innerHTML = modacct;
+
         await window.ethereum.send("eth_requestAccounts");
 
         const lpt = new web3h.eth.Contract(
@@ -757,6 +762,12 @@ function Farms() {
     loadHLYPool();
     allowance();
 
+    async function asyncSetAccount() {
+      const accounts = await web3.eth.getAccounts();
+      setAccount(accounts[0]);
+    }
+    asyncSetAccount();
+
     const interval = setInterval(loadHLYUSDC, 10000);
     const interval3 = setInterval(loadHLYONE, 10000);
     const interval4 = setInterval(loadHLYJEWEL, 10000);
@@ -764,7 +775,7 @@ function Farms() {
     const interval2 = setInterval(allowance, 25000);
     return () =>
       clearInterval(interval, interval2, interval3, interval4, interval5);
-  }, [account, web3h.eth.Contract]);
+  }, [account, web3.eth, web3.utils, web3h.eth.Contract]);
 
   const loadAll = () => {
     this.loadHLYUSDC();
@@ -773,9 +784,8 @@ function Farms() {
     this.loadHLYPool();
   };
 
-  async function approve(e, token) {
+  async function approve(accountParam, e, token) {
     e.preventDefault();
-    const web3 = new Web3(window.ethereum);
     await window.ethereum.send("eth_requestAccounts");
 
     const erc20 = new web3.eth.Contract(erc20ABI, token);
@@ -785,7 +795,7 @@ function Farms() {
         "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78",
         "1000000000000000000000000000"
       )
-      .send({ from: account })
+      .send({ from: accountParam })
       .once("receipt", (receipt) => {
         console.log(receipt);
         loadAll();
@@ -808,10 +818,9 @@ function Farms() {
     return depositAmt;
   };
 
-  async function stake(e, pid, amount) {
+  async function stake(accountParam, e, pid, amount) {
     e.preventDefault();
 
-    const web3 = new Web3(window.ethereum);
     await window.ethereum.send("eth_requestAccounts");
 
     console.log(web3.utils.toWei(amount, "ether"));
@@ -823,7 +832,7 @@ function Farms() {
 
     masterChef.methods
       .deposit(pid, depositAmount(web3, amount, pid))
-      .send({ from: account })
+      .send({ from: accountParam })
       .once("receipt", (receipt) => {
         console.log(receipt);
         loadAll();
@@ -833,10 +842,9 @@ function Farms() {
       });
   }
 
-  async function withdraw(e, pid, amount) {
+  async function withdraw(accountParam, e, pid, amount) {
     e.preventDefault();
 
-    const web3 = new Web3(window.ethereum);
     await window.ethereum.send("eth_requestAccounts");
     console.log(web3.utils.toWei(amount, "ether"));
 
@@ -847,7 +855,7 @@ function Farms() {
 
     masterChef.methods
       .deposit(pid, depositAmount(web3, amount, pid))
-      .send({ from: account })
+      .send({ from: accountParam })
       .once("receipt", (receipt) => {
         console.log(receipt);
         loadAll();
@@ -857,10 +865,9 @@ function Farms() {
       });
   }
 
-  async function claim(e, pid) {
+  async function claim(accountParam, e, pid) {
     e.preventDefault();
 
-    const web3 = new Web3(window.ethereum);
     await window.ethereum.send("eth_requestAccounts");
 
     const masterChef = new web3.eth.Contract(
@@ -870,7 +877,7 @@ function Farms() {
 
     masterChef.methods
       .deposit(pid, 0)
-      .send({ from: account })
+      .send({ from: accountParam })
       .once("receipt", (receipt) => {
         console.log(receipt);
         loadAll();
@@ -880,9 +887,9 @@ function Farms() {
       });
   }
 
-  async function harvestAll(e) {
+  async function harvestAll(accountParam, e) {
     e.preventDefault();
-    const web3 = new Web3(window.ethereum);
+
     await window.ethereum.send("eth_requestAccounts");
 
     const masterChef = new web3.eth.Contract(
@@ -892,7 +899,7 @@ function Farms() {
 
     masterChef.methods
       .harvestAll()
-      .send({ from: account })
+      .send({ from: accountParam })
       .once("receipt", (receipt) => {
         console.log(receipt);
         loadAll();
@@ -952,7 +959,7 @@ function Farms() {
           <TabPanel>
             <form
               onSubmit={(event) =>
-                stake(event, 0, document.getElementById("stake").value)
+                stake(account, event, 0, document.getElementById("stake").value)
               }
             >
               <input
@@ -988,7 +995,11 @@ function Farms() {
                   <button
                     className="hlybtn"
                     onClick={(e) =>
-                      approve(e, "0x387d00b1c74e60e7627b7048818372b1b4ec2e3f")
+                      approve(
+                        account,
+                        e,
+                        "0x387d00b1c74e60e7627b7048818372b1b4ec2e3f"
+                      )
                     }
                   >
                     Approve
@@ -996,9 +1007,9 @@ function Farms() {
                   <br />
                 </>
               )}
-              {/* <button className="hlybtn" onClick={(e) => approve(e, '0x387d00b1c74e60e7627b7048818372b1b4ec2e3f')}>Approve</button><br /> */}
+              {/* <button className="hlybtn" onClick={(e) => approve(account,e, '0x387d00b1c74e60e7627b7048818372b1b4ec2e3f')}>Approve</button><br /> */}
               {/* <button className="hlybtn">Stake</button><br /> */}
-              <button className="hlybtn" onClick={(e) => claim(e, 0)}>
+              <button className="hlybtn" onClick={(e) => claim(account, e, 0)}>
                 Claim Earnings
               </button>
             </form>
@@ -1006,7 +1017,12 @@ function Farms() {
           <TabPanel>
             <form
               onSubmit={(event) =>
-                withdraw(event, 0, document.getElementById("unstake").value)
+                withdraw(
+                  account,
+                  event,
+                  0,
+                  document.getElementById("unstake").value
+                )
               }
             >
               <input
@@ -1036,7 +1052,7 @@ function Farms() {
               </button>
               <br />
 
-              <button className="hlybtn" onClick={(e) => claim(e, 0)}>
+              <button className="hlybtn" onClick={(e) => claim(account, e, 0)}>
                 Claim Earnings
               </button>
             </form>
@@ -1103,7 +1119,7 @@ function Farms() {
           <TabPanel>
             <form
               onSubmit={(event) =>
-                stake(event, 1, document.getElementById("stake").value)
+                stake(account, event, 1, document.getElementById("stake").value)
               }
             >
               <input
@@ -1139,7 +1155,11 @@ function Farms() {
                   <button
                     className="hlybtn"
                     onClick={(e) =>
-                      approve(e, "0x3e478ed607f79a50f286a5a6ce52a049897291b2")
+                      approve(
+                        account,
+                        e,
+                        "0x3e478ed607f79a50f286a5a6ce52a049897291b2"
+                      )
                     }
                   >
                     Approve
@@ -1147,7 +1167,7 @@ function Farms() {
                   <br />
                 </>
               )}
-              <button className="hlybtn" onClick={(e) => claim(e, 1)}>
+              <button className="hlybtn" onClick={(e) => claim(account, e, 1)}>
                 Claim Earnings
               </button>
             </form>
@@ -1155,7 +1175,12 @@ function Farms() {
           <TabPanel>
             <form
               onSubmit={(event) =>
-                withdraw(event, 1, document.getElementById("unstake").value)
+                withdraw(
+                  account,
+                  event,
+                  1,
+                  document.getElementById("unstake").value
+                )
               }
             >
               <input
@@ -1185,7 +1210,7 @@ function Farms() {
               </button>
               <br />
 
-              <button className="hlybtn" onClick={(e) => claim(e, 1)}>
+              <button className="hlybtn" onClick={(e) => claim(account, e, 1)}>
                 Claim Earnings
               </button>
             </form>
@@ -1253,7 +1278,7 @@ function Farms() {
           <TabPanel>
             <form
               onSubmit={(event) =>
-                stake(event, 7, document.getElementById("stake").value)
+                stake(account, event, 7, document.getElementById("stake").value)
               }
             >
               <input
@@ -1289,7 +1314,11 @@ function Farms() {
                   <button
                     className="hlybtn"
                     onClick={(e) =>
-                      approve(e, "0x7b886d19e5ee9e3188eb29037de21dce944ae0ef")
+                      approve(
+                        account,
+                        e,
+                        "0x7b886d19e5ee9e3188eb29037de21dce944ae0ef"
+                      )
                     }
                   >
                     Approve
@@ -1297,7 +1326,7 @@ function Farms() {
                   <br />
                 </>
               )}
-              <button className="hlybtn" onClick={(e) => claim(e, 7)}>
+              <button className="hlybtn" onClick={(e) => claim(account, e, 7)}>
                 Claim Earnings
               </button>
             </form>
@@ -1305,7 +1334,12 @@ function Farms() {
           <TabPanel>
             <form
               onSubmit={(event) =>
-                withdraw(event, 7, document.getElementById("unstake").value)
+                withdraw(
+                  account,
+                  event,
+                  7,
+                  document.getElementById("unstake").value
+                )
               }
             >
               <input
@@ -1335,7 +1369,7 @@ function Farms() {
               </button>
               <br />
 
-              <button className="hlybtn" onClick={(e) => claim(e, 7)}>
+              <button className="hlybtn" onClick={(e) => claim(account, e, 7)}>
                 Claim Earnings
               </button>
             </form>
@@ -1403,7 +1437,7 @@ function Farms() {
           <TabPanel>
             <form
               onSubmit={(event) =>
-                stake(event, 8, document.getElementById("stake").value)
+                stake(account, event, 8, document.getElementById("stake").value)
               }
             >
               <input
@@ -1439,7 +1473,11 @@ function Farms() {
                   <button
                     className="hlybtn"
                     onClick={(e) =>
-                      approve(e, "0x8D760497554eecC3B9036fb0364156ef2F0D02BC")
+                      approve(
+                        account,
+                        e,
+                        "0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
+                      )
                     }
                   >
                     Approve
@@ -1447,7 +1485,7 @@ function Farms() {
                   <br />
                 </>
               )}
-              <button className="hlybtn" onClick={(e) => claim(e, 8)}>
+              <button className="hlybtn" onClick={(e) => claim(account, e, 8)}>
                 Claim Earnings
               </button>
             </form>
@@ -1455,7 +1493,12 @@ function Farms() {
           <TabPanel>
             <form
               onSubmit={(event) =>
-                withdraw(event, 8, document.getElementById("unstake").value)
+                withdraw(
+                  account,
+                  event,
+                  8,
+                  document.getElementById("unstake").value
+                )
               }
             >
               <input
@@ -1485,7 +1528,7 @@ function Farms() {
               </button>
               <br />
 
-              <button className="hlybtn" onClick={(e) => claim(e, 8)}>
+              <button className="hlybtn" onClick={(e) => claim(account, e, 8)}>
                 Claim Earnings
               </button>
             </form>
