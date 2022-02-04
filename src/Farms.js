@@ -3384,7 +3384,7 @@ function Farms() {
       </div>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <h1>
-          Grail Quests{" "}
+          <span className="title">Grail Quests</span>
           <form
             style={{ display: "inline" }}
             action="https://swap.holygrail.one/swap?inputCurrency=ONE&outputCurrency=0x8D760497554eecC3B9036fb0364156ef2F0D02BC"
@@ -3434,8 +3434,8 @@ function Farms() {
           </thead>
           <tbody>
             <tr onClick={openModal} style={{ cursor: "pointer" }}>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="Quest" scope="row">
+                <div className="lefts">
                   <img
                     src="/hlyusdc.png"
                     style={{
@@ -3450,15 +3450,15 @@ function Farms() {
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="APR">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     {HLYUSDCAPR}%
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="Liquidity">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     $
                     {HLYLiquid.toLocaleString("en", {
@@ -3469,14 +3469,14 @@ function Farms() {
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="My Stakes">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     ${HLYUSDCStakedPrice}
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="HLY Earnings">
                 <div style={customStyles.hlyEarningsGrid}>
                   {hlyIcon}
 
@@ -3489,8 +3489,8 @@ function Farms() {
             </tr>
 
             <tr onClick={openModalHLYONE} style={{ cursor: "pointer" }}>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="Quest" scope="row">
+                <div className="lefts">
                   <img
                     src="/hlyone.png"
                     style={{
@@ -3505,15 +3505,15 @@ function Farms() {
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="APR">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     {HLYONEAPR}%
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="Liquidity">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     $
                     {HLYONELiquid.toLocaleString("en", {
@@ -3524,14 +3524,14 @@ function Farms() {
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="My Stakes">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     ${HLYONEStakedPrice}
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="HLY Earnings">
                 <div style={customStyles.hlyEarningsGrid}>
                   {hlyIcon}
                   <div style={customStyles.hlyEarningsGap} />
@@ -3543,8 +3543,8 @@ function Farms() {
             </tr>
 
             <tr onClick={openModalHLYHLYJEW} style={{ cursor: "pointer" }}>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="Quest">
+                <div className="lefts">
                   <img
                     src="/hlyjewel.png"
                     style={{
@@ -3559,15 +3559,15 @@ function Farms() {
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="APR">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     {HLYHLYJEWAPR}%
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="Liquidity">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     $
                     {HLYHLYJEWLiquid.toLocaleString("en", {
@@ -3578,14 +3578,14 @@ function Farms() {
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="My Stakes">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     ${HLYHLYJEWStakedPrice}
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="HLY Earnings">
                 <div style={customStyles.hlyEarningsGrid}>
                   {hlyIcon}
                   <div style={customStyles.hlyEarningsGap} />
@@ -3597,8 +3597,8 @@ function Farms() {
             </tr>
 
             <tr onClick={openModalHLYHLY} style={{ cursor: "pointer" }}>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "left" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="Quest">
+                <div className="lefts">
                   <img
                     src="/hly.png"
                     style={{
@@ -3613,15 +3613,15 @@ function Farms() {
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="APR">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     {HLYHLYHLYAPR}%
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="Liquidity">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     $
                     {HLYHLYHLYLiquid.toLocaleString("en", {
@@ -3632,14 +3632,14 @@ function Farms() {
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
-                <div style={{ textAlign: "center" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="My Stakes">
+                <div className="centers">
                   <span style={{ fontSize: "18px", fontWeight: "100" }}>
                     ${HLYHLYHLYStakedPrice}
                   </span>
                 </div>
               </td>
-              <td style={{ border: "0", padding: "10px" }}>
+              <td style={{ border: "0", padding: "10px" }} data-label="HLY Earnings">
                 <div style={customStyles.hlyEarningsGrid}>
                   {hlyIcon}
                   <div style={customStyles.hlyEarningsGap} />
