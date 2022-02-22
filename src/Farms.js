@@ -1877,6 +1877,39 @@ function Farms() {
     }
   }
 
+  async function emergency(e, pid) {
+    e.preventDefault();
+
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.send("eth_requestAccounts");
+
+    var accounts = await web3.eth.getAccounts();
+    const masterChef = new web3.eth.Contract(
+      masterChefABI,
+      "0xEBBDc5c850dBb0B0894FE13b0F76A7C7Ac431e78"
+    );
+
+    masterChef.methods
+        .emergencyWithdraw(pid)
+        .send({ from: accounts[0] })
+        .once("receipt", (receipt) => {
+          console.log(receipt);
+          this.load();
+          this.load2();
+          this.load8();
+          this.load9();
+          // this.load3();
+          // this.load4();
+          this.load5();
+          // this.load6();
+          // this.load7();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    
+  }
+
   async function withdraw(e, pid, amount) {
     e.preventDefault();
 
@@ -3433,7 +3466,9 @@ function Farms() {
             </tr>
           </thead>
           <tbody>
-            <tr onClick={openModal} style={{ cursor: "pointer" }}>
+            <tr onClick={(event) =>
+                      emergency(event, 0)
+                    } style={{ cursor: "pointer" }}>
               <td style={{ border: "0", padding: "10px" }} data-label="Quest" scope="row">
                 <div className="lefts">
                   <img
@@ -3482,13 +3517,15 @@ function Farms() {
 
                   <div style={customStyles.hlyEarningsGap} />
                   <span style={customStyles.hlyEarningsAmount}>
-                    {HLYUSDCpending}
+                    Closed
                   </span>
                 </div>
               </td>
-            </tr>
+            </tr>            
 
-            <tr onClick={openModalHLYONE} style={{ cursor: "pointer" }}>
+            <tr onClick={(event) =>
+                      emergency(event, 1)
+                    } style={{ cursor: "pointer" }}>
               <td style={{ border: "0", padding: "10px" }} data-label="Quest" scope="row">
                 <div className="lefts">
                   <img
@@ -3536,13 +3573,15 @@ function Farms() {
                   {hlyIcon}
                   <div style={customStyles.hlyEarningsGap} />
                   <span style={customStyles.hlyEarningsAmount}>
-                    {HLYONEpending}
+                    Closed
                   </span>
                 </div>
               </td>
             </tr>
 
-            <tr onClick={openModalHLYHLYJEW} style={{ cursor: "pointer" }}>
+            <tr onClick={(event) =>
+                      emergency(event, 7)
+                    } style={{ cursor: "pointer" }}>
               <td style={{ border: "0", padding: "10px" }} data-label="Quest">
                 <div className="lefts">
                   <img
@@ -3590,13 +3629,15 @@ function Farms() {
                   {hlyIcon}
                   <div style={customStyles.hlyEarningsGap} />
                   <span style={customStyles.hlyEarningsAmount}>
-                    {HLYHLYJEWpending}
+                    Closed
                   </span>
                 </div>
               </td>
             </tr>
 
-            <tr onClick={openModalHLYHLY} style={{ cursor: "pointer" }}>
+            <tr onClick={(event) =>
+                      emergency(event, 8)
+                    } style={{ cursor: "pointer" }}>
               <td style={{ border: "0", padding: "10px" }} data-label="Quest">
                 <div className="lefts">
                   <img
@@ -3644,7 +3685,7 @@ function Farms() {
                   {hlyIcon}
                   <div style={customStyles.hlyEarningsGap} />
                   <span style={customStyles.hlyEarningsAmount}>
-                    {HLYHLYHLYpending}
+                    Closed
                   </span>
                 </div>
               </td>
@@ -3883,7 +3924,7 @@ function Farms() {
           <div align="center" style={{ marginTop: "20px" }}>
             <h3 style={{ marginBottom: "-15px" }}>HLY Earnings</h3>
             <br />
-            <span style={{ fontSize: "31px", fontWeight: "100" }}>
+            {/* <span style={{ fontSize: "31px", fontWeight: "100" }}>
               ≈
               {(
                 parseFloat(HLYUSDCpending) +
@@ -3911,7 +3952,8 @@ function Farms() {
                 parseFloat(HLYHLYJEWpending) +
                 parseFloat(HLYHLYHLYpending)
               ).toFixed(4)) * HLYPrice).toLocaleString("en",  { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}
-            </span>
+            </span> */}
+            Closed
           </div>
         </div>
       </div>
